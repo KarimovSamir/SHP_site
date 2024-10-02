@@ -1,12 +1,12 @@
 // Пути к изображениям
 const photos = [
-    'img/preffered_photos/4.jpg',
-    'img/preffered_photos/5.jpg',
-    'img/preffered_photos/6.jpg',
-    'img/preffered_photos/7.jpg',
-    'img/preffered_photos/8.jpg',
-    'img/preffered_photos/9.jpg',
-    'img/preffered_photos/10.jpg'
+    'https://res.cloudinary.com/dlarkoumm/image/upload/v1727864956/4.jpg',
+    'https://res.cloudinary.com/dlarkoumm/image/upload/v1727864963/5.jpg',
+    'https://res.cloudinary.com/dlarkoumm/image/upload/v1727864963/6.jpg',
+    'https://res.cloudinary.com/dlarkoumm/image/upload/v1727864963/7.jpg',
+    'https://res.cloudinary.com/dlarkoumm/image/upload/v1727864963/8.jpg',
+    'https://res.cloudinary.com/dlarkoumm/image/upload/v1727864963/9.jpg',
+    'https://res.cloudinary.com/dlarkoumm/image/upload/v1727864956/10.jpg'
 ];
 
 // Индекс текущей фотографии
