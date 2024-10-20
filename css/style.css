@@ -4374,16 +4374,16 @@ images
      object-position: center;
 } */
 .mil-image-frame.mil-horizontal {
-  padding-bottom: 65%;
+  padding-bottom: 5%;
 }
 /* .mil-image-frame.mil-vertical {
   padding-bottom: 140%;
 } */
 .mil-image-frame.mil-square {
-  padding-bottom: 100%;
+  padding-bottom: 5%;
 }
 .mil-image-frame.mil-fw {
-  padding-bottom: 50%;
+  padding-bottom: 5%;
 }
 .mil-image-frame .mil-zoom-btn {
   opacity: 0;
