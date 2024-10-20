@@ -1168,6 +1168,15 @@ spaces
   }
 }
 
+.mil-p-90-0 {
+  padding-top: 90px;
+}
+@media screen and (max-width: 992px) {
+  .mil-p-90-0 {
+    padding-top: 60px;
+  }
+}
+
 .mil-p-60-0 {
   padding-top: 60px;
 }
@@ -3598,7 +3607,7 @@ portfolio
 
 .mil-works-nav {
   padding-top: 60px;
-  border-top: solid 1px rgba(0, 0, 0, 0.1);
+  /* border-top: solid 1px rgba(0, 0, 0, 0.1); */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3609,6 +3618,7 @@ portfolio
       -ms-flex-align: center;
           align-items: center;
 }
+
 .mil-works-nav .mil-disabled {
   opacity: 0.2;
   cursor: not-allowed;
@@ -4813,4 +4823,36 @@ services new picture
   .services-page .mil-banner-image img {
     width: 100%;
   }
+}
+
+/* -------------------------------------------
+
+portfolio single
+
+------------------------------------------- */
+
+.portfolio-single-image-frame {
+  width: 652px;
+  height: 434px;
+  overflow: hidden;
+  position: relative;
+}
+
+.portfolio-single-image-frame img {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-image-frame.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: static;
+  transform: none;
 }
