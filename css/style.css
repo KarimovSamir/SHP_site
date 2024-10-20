@@ -1197,6 +1197,28 @@ spaces
   }
 }
 
+.mil-p-30-30 {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+@media screen and (max-width: 992px) {
+  .mil-p-30-30 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+}
+
+.mil-p-60-60 {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+@media screen and (max-width: 992px) {
+  .mil-p-60-60 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}
+
 .mil-p-90-90 {
   padding-top: 90px;
   padding-bottom: 90px;
