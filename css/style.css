@@ -1219,6 +1219,17 @@ spaces
   }
 }
 
+.mil-p-60-30 {
+  padding-top: 60px;
+  padding-bottom: 30px;
+}
+@media screen and (max-width: 992px) {
+  .mil-p-60-30 {
+    padding-top: 30px;
+    padding-bottom: 0px;
+  }
+}
+
 .mil-p-90-90 {
   padding-top: 90px;
   padding-bottom: 90px;
@@ -3628,7 +3639,7 @@ portfolio
 }
 
 .mil-works-nav {
-  padding-top: 60px;
+  padding-top: 30px;
   /* border-top: solid 1px rgba(0, 0, 0, 0.1); */
   display: -webkit-box;
   display: -ms-flexbox;
