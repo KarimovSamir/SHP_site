@@ -668,7 +668,7 @@ a {
 .mil-suptitle {
   position: relative;
   display: block;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 .mil-suptitle:before {
   content: "";
@@ -1055,8 +1055,8 @@ backgrounds
   position: absolute;
   pointer-events: none;
   z-index: 2;
-  -webkit-backdrop-filter: invert(90%);
-          backdrop-filter: invert(90%);
+  -webkit-backdrop-filter: invert(85%);
+          backdrop-filter: invert(85%);
 }
 
 .mil-dark-bg .mi-invert-fix {
@@ -1825,13 +1825,14 @@ menu
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
+  /* display: flex; */
+  /* display: -webkit-box; */
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 .mil-main-menu ul {
-  padding: 0;
+  padding: 30px;
   margin: 0;
 }
 .mil-main-menu ul li {
@@ -1856,7 +1857,7 @@ menu
 }
 @media screen and (max-width: 992px) {
   .mil-main-menu ul li a {
-    font-size: 26px;
+    font-size: 32px;
   }
 }
 .mil-main-menu ul li a:before {
@@ -1933,6 +1934,7 @@ menu
 }
 @media screen and (max-width: 1200px) {
   .mil-main-menu {
+    display: flex;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
@@ -1990,7 +1992,7 @@ banner
 }
 .mil-banner .mil-banner-content {
   width: 100%;
-  padding-bottom: 120px;
+  padding-bottom: 60px;
   position: relative;
 }
 @media screen and (max-width: 992px) {
@@ -4665,6 +4667,7 @@ footer style
   transform: translate(-50%, -50%);
   z-index: -1;
   filter: brightness(40%);
+  
 }
 
 .mil-video-background {
@@ -4888,4 +4891,206 @@ portfolio single
   object-fit: cover;
   position: static;
   transform: none;
+}
+
+/* -------------------------------------------
+
+main page tabs for 'about us'
+
+------------------------------------------- */
+
+/* Стили для вкладок */
+._main_tabs_about_us-tabs {
+  margin-top: 90px;
+  /* margin-bottom: 30px; */
+  font-size: 15px;
+  list-style: none;
+  background: #fff;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  border-radius: 50px;
+  /* position: relative; */
+  position: absolute; /* Абсолютное позиционирование */
+  top: 0; /* Фиксируем вкладки в верхней части родительского элемента */
+  z-index: 1; /* Чтобы вкладки были над контентом */
+}
+
+._main_tabs_about_us-tab {
+  text-decoration: none;
+  color: #777;
+  text-transform: uppercase;
+  padding: 20px 30px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  transition-duration: 0.6s;
+}
+
+._main_tabs_about_us-tab.active {
+  color: #fff;
+}
+
+._main_tabs_about_us-tab i {
+  margin-right: 5px;
+}
+
+._main_tabs_about_us-selector {
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+  border-radius: 50px;
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  /* background: linear-gradient(45deg, #001f87 0%, #8200f4 100%); */
+  /* background: linear-gradient(45deg, #8200f4 0%, #00a14b 100%); */
+  background: linear-gradient(45deg, #00a14b 40%, #8200f4 100%);
+}
+
+/* Скрываем все табы по умолчанию */
+.mil-tab-content {
+  display: none;
+  margin-top: 20px;
+}
+
+/* Показываем активный контент */
+.mil-tab-content.active {
+  display: block;
+}
+
+
+/* -------------------------------------------
+
+main page tabs for 'services'
+
+------------------------------------------- */
+
+.services-section-content {
+  display: none;
+  margin-top: 20px;
+}
+
+.services-section-content.active {
+  display: block;
+}
+
+/* Services Tabs Styles */
+._main_tabs_services-tabs {
+  margin: 30px auto;
+  font-size: 15px;
+  list-style: none;
+  background: transparent;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  border-radius: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+._main_tabs_services-tab {
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 20px 30px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  transition-duration: 0.6s;
+}
+
+._main_tabs_services-tab.active {
+  color: #fff;
+}
+
+._main_tabs_services-tab i {
+  margin-right: 5px;
+}
+
+._main_tabs_services-selector {
+  height: 100%;
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+  border-radius: 50px;
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  background: linear-gradient(45deg, #00a14b 40%, #8200f4 100%);
+}
+
+/* Center tabs container */
+.mil-dark-bg ._main_tabs_services-tabs {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}
+
+/* Adjust tab content spacing */
+.mil-dark-bg .mil-tab-content {
+  margin-top: 40px;
+}
+
+.mil-inner-banner.services-page.no-padding .mil-banner-content {
+  padding: 0 !important;;
+}
+@media screen and (max-width: 1200px) {
+  .mil-inner-banner.services-page.no-padding .mil-banner-content {
+    padding: 0 !important;;
+  }
+}
+
+.service-accordion-head {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: rgb(255, 255, 255);
+}
+
+/* -------------------------------------------
+
+slideshow buttons
+
+------------------------------------------- */
+
+.mil-slide-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 1;
+}
+
+.mil-slide-btn-left {
+  left: 10px;
+}
+
+.mil-slide-btn-right {
+  right: 10px;
+}
+
+.mil-dark-bg .mi-invert-fix .mil-slide-btn {
+  pointer-events: auto;
+}
+
+.mil-dark-bg .mi-invert-fix .mil-slideshow-background {
+  pointer-events: auto;
+}
+
+.mil-banner-content {
+  pointer-events: none;
+}
+
+.mil-banner-content a,
+.mil-banner-content svg {
+    pointer-events: auto;
 }

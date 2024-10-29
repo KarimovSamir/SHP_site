@@ -3,9 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let invertFix = document.querySelector('.mi-invert-fix');
     let bannerSection = document.querySelector('.mil-banner');
 
-    // Функция для проверки класса mil-mainpage-class
     function checkPageClass() {
-        // Проверяем наличие элемента bannerSection
         if (bannerSection && bannerSection.classList.contains('mil-mainpage-class') && window.innerWidth > 1200) {
             frame.classList.add('mil-frame-visible');
         } else {
@@ -13,47 +11,37 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Функция для проверки видимости видео
     function checkVideoVisibility() {
-        // Проверяем наличие элемента invertFix после каждого перехода
-        invertFix = document.querySelector('.mi-invert-fix'); // Повторно находим элемент после замены контента
-
+        invertFix = document.querySelector('.mi-invert-fix');
         if (window.innerWidth > 1200 && invertFix) {
             const rect = invertFix.getBoundingClientRect();
             if (rect.top <= window.innerHeight && rect.bottom >= 0) {
                 frame.style.zIndex = '999';
-                checkPageClass(); // Проверяем классы на видимой странице
+                checkPageClass();
             } else {
                 frame.style.zIndex = '2';
                 frame.classList.remove('mil-frame-visible');
             }
         } else {
             frame.style.zIndex = '999';
-            checkPageClass(); // Проверяем классы на мобильных устройствах
+            checkPageClass();
         }
     }
 
-    // Инициализация всех функций
     function init() {
-        // Сбрасываем класс mil-frame-visible перед проверками
         frame.classList.remove('mil-frame-visible');
-        
-        bannerSection = document.querySelector('.mil-banner'); // Повторно находим элемент после замены контента
-        checkVideoVisibility(); // Проверяем видимость видео
+        bannerSection = document.querySelector('.mil-banner');
+        checkVideoVisibility();
 
-        // Удаляем предыдущие слушатели событий
         document.removeEventListener("scroll", checkVideoVisibility);
         window.removeEventListener("resize", checkVideoVisibility);
 
-        // Добавляем обработчики событий для скролла и изменения размера окна
         document.addEventListener("scroll", checkVideoVisibility);
         window.addEventListener("resize", checkVideoVisibility);
 
-        // Инициализация слайдшоу
         initSlideshow();
     }
 
-    // Инициализация слайдшоу
     function initSlideshow() {
         const slideshowImages = [
             'https://res.cloudinary.com/dlarkoumm/image/upload/v1726902785/BilgahBeachHotel_hcx6oi.png',
@@ -63,33 +51,56 @@ document.addEventListener("DOMContentLoaded", function () {
             'https://res.cloudinary.com/dlarkoumm/image/upload/v1726902786/BravoHypermarkets_e6crau.png'
         ];
 
+        const slideshowLinks = [
+            'portfolio.html', 
+            'portfolio.html', 
+            'portfolio.html', 
+            'portfolio.html', 
+            'portfolio.html'
+        ];
+
         let currentImageIndex = 0;
-        const slideshowImageElement = document.querySelector('.mil-slideshow-background img');
+        const slideshowImageElement = document.getElementById('slideshow-image');
+        const slideshowLinkElement = document.getElementById('slideshow-link');
 
-        if (slideshowImageElement) {
-            // Удаляем старый интервал, если он существует
-            if (window.slideshowInterval) {
-                clearInterval(window.slideshowInterval);
-            }
+        if (window.slideshowInterval) {
+            clearInterval(window.slideshowInterval);
+        }
 
-            // Запускаем слайдшоу
+        function showSlide(index) {
+            currentImageIndex = (index + slideshowImages.length) % slideshowImages.length;
+            slideshowImageElement.src = slideshowImages[currentImageIndex];
+            slideshowLinkElement.href = slideshowLinks[currentImageIndex];
+        }
+
+        function startSlideshow() {
             window.slideshowInterval = setInterval(function () {
-                currentImageIndex = (currentImageIndex + 1) % slideshowImages.length;
-                slideshowImageElement.src = slideshowImages[currentImageIndex];
+                showSlide(currentImageIndex + 1);
             }, 3000);
         }
+
+        document.getElementById("nextSlide").addEventListener("click", function() {
+            clearInterval(window.slideshowInterval);
+            showSlide(currentImageIndex + 1);
+            startSlideshow();
+        });
+
+        document.getElementById("prevSlide").addEventListener("click", function() {
+            clearInterval(window.slideshowInterval);
+            showSlide(currentImageIndex - 1);
+            startSlideshow();
+        });
+
+        startSlideshow();
     }
 
-    // Инициализация при первой загрузке страницы
     init();
 
-    // Подписываемся на событие Swup, когда контент заменяется
     document.addEventListener("swup:contentReplaced", function() {
-        init(); // Повторно инициализируем логику после перехода
+        init();
     });
 
-    // Подписываемся на событие Swup, когда анимация завершена и новый контент загружен
     document.addEventListener("swup:animationInDone", function() {
-        init(); // Еще раз проверяем логику после завершения анимации
+        init();
     });
 });
