@@ -246,6 +246,7 @@
                 <section class="mil-banner mil-dark-bg mil-mainpage-class">
                     <div class="mi-invert-fix">
                         <div class="mil-slideshow-background">
+                            <div class="mil-slideshow-text" id="slideshow-text"></div>
                             <button id="prevSlide" class="mil-slide-btn mil-slide-btn-left">&lt;</button>
                             <!-- <img id="slideshow-image" src="https://res.cloudinary.com/dlarkoumm/image/upload/v1726902785/BilgahBeachHotel_hcx6oi.png" alt="Slideshow Image"> -->
                             <a id="slideshow-link" href="portfolio.html">
@@ -411,30 +412,109 @@
                 </section>    
                 <!-- about end -->
 
-                <!-- services -->
-                <section id="services" class="mil-dark-bg">
-                    <div class="mi-invert-fix">
-                        <div class="mil-animation-frame">
-                            <div class="mil-animation mil-position-1 mil-scale" data-value-1="2.4" data-value-2="1.4" style="top: 300px; right: -100px"></div>
-                            <div class="mil-animation mil-position-2 mil-scale" data-value-1="2" data-value-2="1" style="left: 150px"></div>
-                        </div>
-                        <div class="container mil-p-60-0">
-                            <div class="mil-mb-90 mil-light-text"> <!-- Новый класс для белого текста -->
-                                <div class="row">
-                                    <div class="col-lg-10">
-                                        <span class="mil-suptitle mil-light-soft mil-suptitle-right mil-up">Specialists who create the future of your project <br>and ensure its development.</span>
+                <!-- team -->
+                <section id="team" class="mil-soft-bg">
+                    <div class="container mil-p-60-30">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-lg-5 col-xl-4">
+                                <div class="mil-mb-30">
+                                    <h2 class="mil-up mil-mb-30">Meet <br>Our Team</h2>
+                                    <p class="mil-up mil-mb-15">We are talented individuals who are passionate about bringing ideas to life. With a diverse range of backgrounds and skill sets, we collaborate to produce effective solutions for our clients.</p>
+                                    <p class="mil-up mil-mb-30">Together, our creative team is committed to delivering impactful work that exceeds expectations.</p>
+                                    <div class="mil-up"><a href="team" class="mil-button mil-arrow-place mil-mb-30"><span>Read more</span></a></div>
+
+                                    <!-- <img class="mil-team-image" src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864962/5_Option_01.jpg" alt="Our Team" > -->
+                                    <a href="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864962/5_Option_01.jpg" data-lightbox="team" data-no-swup>
+                                        <img class="mil-team-image mil-up" src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864962/5_Option_01.jpg" alt="Our Team">
+                                    </a>
+
+                                    <!-- <h4 class="mil-up"><span class="mil-thin">We</span> delivering <br><span class="mil-thin">exceptional</span> results.</h4> -->
+                                </div>
+                            </div>
+                            <div class="col-lg-6-team">
+                                <div class="mil-team-list">
+                                    <div class="mil-lines-place"></div>
+                                    <div class="row">
+                                        <!-- First column -->
+                                        <div class="col-4">
+                                            <!-- First photo in first column -->
+                                            
+                                            <a href="https://res.cloudinary.com/dlarkoumm/image/upload/v1728982637/1_l9uh07.jpg" data-lightbox="team" data-no-swup>
+                                                <img class="mil-team-image mil-up mil-mb-15" src="https://res.cloudinary.com/dlarkoumm/image/upload/v1728982637/1_l9uh07.jpg" alt="Team member 1">
+                                            </a>
+                                            <!-- <div class="mil-team-card mil-up mil-mb-30">
+                                                <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1728982637/1_l9uh07.jpg" alt="Team member 1">
+                                                <div class="mil-description">
+                                                    <div class="mil-secrc-text">
+                                                        <h5 class="mil-muted mil-mb-5"><a href="/team"></a></h5>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+
+                                            <!-- Second photo in first column -->
+                                            <a href="https://res.cloudinary.com/dlarkoumm/image/upload/v1726902752/IMG_4493_xae5jt.jpg" data-lightbox="team" data-no-swup>
+                                                <img class="mil-team-image mil-up mil-mb-15" src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864956/3.jpg" alt="Team member 2">
+                                            </a>
+                                            <!-- Third photo in first column -->
+                                            <!-- <div class="mil-team-card mil-up mil-mb-30">
+                                                <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1726902752/IMG_4493_xae5jt.jpg" alt="Team member 3">
+                                                <div class="mil-description">
+                                                    <div class="mil-secrc-text">
+                                                        <h5 class="mil-muted mil-mb-5"><a href="/team"></a></h5>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                        </div>
+
+                                        <!-- Second column -->
+                                        <div class="col-4">
+                                            <!-- First photo in second column -->
+                                            <a href="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864956/2.jpg" data-lightbox="team" data-no-swup>
+                                                <img class="mil-team-image mil-up mil-mb-15" src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864956/2.jpg" alt="Team member 3">
+                                            </a>
+
+                                            <!-- Second photo in second column -->
+                                            <a href="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864956/4.jpg" data-lightbox="team" data-no-swup>
+                                                <img class="mil-team-image mil-up mil-mb-15" src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864956/4.jpg" alt="Team member 4">
+                                            </a>
+                                        </div>
+
+                                        <!-- Third column -->
+                                        <div class="col-4">
+                                            <!-- First photo in third column -->
+                                            <a href="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864963/6.jpg" data-lightbox="team" data-no-swup>
+                                                <img class="mil-team-image mil-up mil-mb-15" src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864963/6.jpg" alt="Team member 5">
+                                            </a>
+
+                                            <!-- Second photo in third column -->
+                                            <a href="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864963/7.jpg" data-lightbox="team" data-no-swup>
+                                                <img class="mil-team-image mil-up mil-mb-15" src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727864963/7.jpg" alt="Team member 6">
+                                            </a>
+                                            
+                                        </div>                                        
                                     </div>
                                 </div>
-                
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- team end -->
+
+                <!-- services -->
+                <section id="services" class="mil-services-bg">
+                    <div class="mi-invert-fix">
+                        <div class="mil-animation-frame">
+                            <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="2.4" data-value-2="1.4" style="top: 300px; right: -100px"></div>
+                            <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="2" data-value-2="1" style="left: 150px"></div>
+                        </div>
+                        <!-- <div class="mil-animation-frame">
+                            <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+                        </div> -->
+                        <div class="container mil-p-30-0">
+                            <!-- <div class="mil-mb-60 mil-light-text"> -->
+                            <div class="mil-mb-30">
                                 <div class="mil-complex-text justify-content-center mil-up mil-mb-15">
-                                    <span class="mil-text-image">
-                                        <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1726999471/main_services_image_zneemv.jpg" alt="team 3 section">
-                                    </span>
-                                    <h2 class="mil-h1 mil-muted mil-light-soft mil-center">Unique <span class="mil-thin">Solutions</span></h2> <!-- mil-light-soft добавлен -->
-                                </div>
-                                <div class="mil-complex-text justify-content-center mil-up">
-                                    <h2 class="mil-h1 mil-muted mil-light-soft mil-center">For Your <span class="mil-thin">Business.</span></h2> <!-- mil-light-soft добавлен -->
-                                    <a href="service_mep" class="mil-services-button mil-button mil-arrow-place"><span>What we do</span></a>
+                                    <h2 class="mil-h1 mil-center">Our Services</h2> 
                                 </div>
                             </div>
                                             
@@ -443,9 +523,9 @@
                                     
                                     <nav class="_main_tabs_services-tabs">
                                         <div class="_main_tabs_services-selector"></div>
-                                        <a href="#" class="_main_tabs_services-tab active mil-light-soft" data-tab="services-construction" data-no-swup><i class="fa fa-building"></i> Construction and MEP</a>
-                                        <a href="#" class="_main_tabs_services-tab mil-light-soft" data-tab="services-design" data-no-swup><i class="fa fa-pencil"></i> Design</a>
-                                        <a href="#" class="_main_tabs_services-tab mil-light-soft" data-tab="services-consultancy" data-no-swup><i class="fa fa-comments"></i> Consultancy</a>
+                                        <a href="#" class="_main_tabs_services-tab active" data-tab="services-construction" data-no-swup><i class="fa fa-building"></i> Construction and MEP</a>
+                                        <a href="#" class="_main_tabs_services-tab" data-tab="services-design" data-no-swup><i class="fa fa-pencil"></i> Design</a>
+                                        <a href="#" class="_main_tabs_services-tab" data-tab="services-consultancy" data-no-swup><i class="fa fa-comments"></i> Consultancy</a>
                                     </nav>
                 
                                     <!-- Tab Contents -->
@@ -454,7 +534,7 @@
                                         <div class="mil-inner-banner services-page no-padding">
                                             <div class="mil-banner-content mil-up">
                                                 <div class="container flex-container">
-                                                    <h1 class="mil-mb-60 mil-light-soft">Construction <span class="mil-thin">and</span><br> MEP <span class="mil-thin">Works</span></h1> <!-- mil-light-soft добавлен -->
+                                                    <h1 class="mil-mb-30">Construction <span class="mil-thin">and</span><br> MEP <span class="mil-thin">Works</span></h1>
                                                 </div>
                                                 <div class="mil-banner-image">
                                                     <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727799712/mep_ynpkp9.webp" alt="MEP Works Image">
@@ -466,10 +546,10 @@
                                         <section id="service_construction">
                                             <div class="container mil-p-30-30">
                                                 <div class="row justify-content-between">
-                                                    <div class="col-lg-4 mil-relative mil-mb-90">
+                                                    <div class="col-lg-4 mil-relative mil-mb-30">
                                         
-                                                        <h4 class="mil-up mil-mb-30 mil-light-soft">Our <span class="mil-thin">Approach</span> <br>and <span class="mil-thin">Work Specifics</span></h4>
-                                                        <p class="mil-up mil-mb-30 mil-light-soft">At SHP LLC, we prioritize excellence in every project. Our approach integrates meticulous planning, top-tier construction practices, and rigorous adherence to both local and international standards. Whether it's MEP systems, architectural design, or project management, we ensure that every aspect is executed with precision and quality. Our team is dedicated to delivering innovative solutions that meet your unique needs, ensuring your project's success from concept to completion.</p>
+                                                        <h4 class="mil-up mil-mb-30">Our <span class="mil-thin">Approach</span> <br>and <span class="mil-thin">Work Specifics</span></h4>
+                                                        <p class="mil-up mil-mb-30">At SHP LLC, we prioritize excellence in every project. Our approach integrates meticulous planning, top-tier construction practices, and rigorous adherence to both local and international standards. Whether it's MEP systems, architectural design, or project management, we ensure that every aspect is executed with precision and quality. Our team is dedicated to delivering innovative solutions that meet your unique needs, ensuring your project's success from concept to completion.</p>
                                                         <!-- <div class="mil-up">
                                                             <a href="portfolio" class="mil-link mil-dark mil-arrow-place">
                                                                 <span>View works</span>
@@ -480,8 +560,8 @@
                                                     </div>
                                                     <div class="col-lg-6">
                                         
-                                                        <div class="mil-accordion-group mil-up mil-light-soft">
-                                                            <div class="mil-accordion-menu mil-light-soft">                                        
+                                                        <div class="mil-accordion-group mil-up">
+                                                            <div class="mil-accordion-menu">                                        
                                                                 <p class="service-accordion-head">Construction & Fit-Out works</p>
                                         
                                                                 <div class="mil-symbol mil-h3">
@@ -489,7 +569,7 @@
                                                                     <div class="mil-minus">-</div>
                                                                 </div>                                        
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     •	Concrete works; <br>
                                                                     •	Metal works;<br>
@@ -508,7 +588,7 @@
                                                         </div>
                                         
                                                         <div class="mil-accordion-group mil-up">
-                                                            <div class="mil-accordion-menu mil-light-soft">
+                                                            <div class="mil-accordion-menu">
                                         
                                                                 <p class="service-accordion-head">Mechanical works</p>
                                         
@@ -518,7 +598,7 @@
                                                                 </div>
                                         
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     •	HVAC systems (Ducted Air Distribution and Ventilation, Air Handling Units, Kitchen Exhaust Systems, Smoke Exhaust Systems, Fan Coil Units, Electrostatic Filters, Active Carbon Filters, VRV/DX systems, etc.);<br>
                                                                     •	Cooling & Heating systems (Chillers, Boilers, Pumps, Heat Exchangers, Air Separators, etc);<br>
@@ -529,7 +609,7 @@
                                                         </div>
                                         
                                                         <div class="mil-accordion-group mil-up">
-                                                            <div class="mil-accordion-menu mil-light-soft">
+                                                            <div class="mil-accordion-menu">
                                         
                                                                 <p class="service-accordion-head">Fire Protection works</p>
                                         
@@ -539,7 +619,7 @@
                                                                 </div>
                                         
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     •	Fire Protection Systems (Fire Pumps, Automatic Sprinkler Systems, Standpipe Systems, Dry Pipe Systems, Gaseous Fire Suppression Systems, Wet Chemical Systems, Hydrants, etc.);<br>
                                                                     •	Fire Alarm Systems;<br>
@@ -549,7 +629,7 @@
                                                         </div>
                                         
                                                         <div class="mil-accordion-group mil-up">
-                                                            <div class="mil-accordion-menu mil-light-soft">
+                                                            <div class="mil-accordion-menu">
                                         
                                                                 <p class="service-accordion-head">Electrical works</p>
                                         
@@ -559,7 +639,7 @@
                                                                 </div>
                                         
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     •	Power Distribution Systems (Low Voltage and Medium Voltage, Main Distribution Boards, Transformers, etc.); <br>
                                                                     •	Emergency Power Systems (Diesel Generators);<br>
@@ -586,7 +666,7 @@
                                         <div class="mil-inner-banner services-page no-padding">
                                             <div class="mil-banner-content mil-up">
                                                 <div class="container flex-container">
-                                                    <h1 class="mil-mb-60 mil-light-soft">Design Services</h1>
+                                                    <h1 class="mil-mb-30">Design Services</h1>
                                                 </div>
                                                 <div class="mil-banner-image">
                                                     <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727799712/design_nergmr.webp" alt="Design Works Image">
@@ -598,18 +678,18 @@
                                         <section id="service_design">
                                             <div class="container mil-p-30-30">
                                                 <div class="row justify-content-between">
-                                                    <div class="col-lg-4 mil-relative mil-mb-90">
+                                                    <div class="col-lg-4 mil-relative mil-mb-30">
                                         
-                                                        <h4 class="mil-up mil-mb-30 mil-light-soft">Our <span class="mil-thin">Approach</span> <br>and <span class="mil-thin">Work Specifics</span></h4>
-                                                        <p class="mil-up mil-mb-30 mil-light-soft">At SHP LLC, we prioritize excellence in every project. Our approach integrates meticulous planning, top-tier construction practices, and rigorous adherence to both local and international standards. Whether it's MEP systems, architectural design, or project management, we ensure that every aspect is executed with precision and quality. Our team is dedicated to delivering innovative solutions that meet your unique needs, ensuring your project's success from concept to completion.</p>
+                                                        <h4 class="mil-up mil-mb-30">Our <span class="mil-thin">Approach</span> <br>and <span class="mil-thin">Work Specifics</span></h4>
+                                                        <p class="mil-up mil-mb-30">At SHP LLC, we prioritize excellence in every project. Our approach integrates meticulous planning, top-tier construction practices, and rigorous adherence to both local and international standards. Whether it's MEP systems, architectural design, or project management, we ensure that every aspect is executed with precision and quality. Our team is dedicated to delivering innovative solutions that meet your unique needs, ensuring your project's success from concept to completion.</p>
 
                                                         <a href="portfolio" class="mil-services-button mil-button mil-arrow-place"><span>Our Projects</span></a>
                                         
                                                     </div>
                                                     <div class="col-lg-6">
                                         
-                                                        <div class="mil-accordion-group mil-up mil-light-soft">
-                                                            <div class="mil-accordion-menu mil-light-soft">                                        
+                                                        <div class="mil-accordion-group mil-up">
+                                                            <div class="mil-accordion-menu">                                        
                                                                 <p class="service-accordion-head">Concept Design & Visualization</p>
                                         
                                                                 <div class="mil-symbol mil-h3">
@@ -617,7 +697,7 @@
                                                                     <div class="mil-minus">-</div>
                                                                 </div>                                        
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     Preparation of general arrangement plans and 3D visualization of interiors and exteriors
                                                                 </p>
@@ -625,7 +705,7 @@
                                                         </div>
                                         
                                                         <div class="mil-accordion-group mil-up">
-                                                            <div class="mil-accordion-menu mil-light-soft">
+                                                            <div class="mil-accordion-menu">
                                         
                                                                 <p class="service-accordion-head">Architectural Design</p>
                                         
@@ -635,7 +715,7 @@
                                                                 </div>
                                         
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     Preparation of architectural drawings- Wall Construction, Floor Construction, Floor Finishes, Wall Finishes, Ceiling Construction, Furniture Layouts, Sections and Details
                                                                 </p>
@@ -643,7 +723,7 @@
                                                         </div>
                                         
                                                         <div class="mil-accordion-group mil-up">
-                                                            <div class="mil-accordion-menu mil-light-soft">
+                                                            <div class="mil-accordion-menu">
                                         
                                                                 <p class="service-accordion-head">MEP Design</p>
                                         
@@ -653,7 +733,7 @@
                                                                 </div>
                                         
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     Preparation of mechanical and electrical drawings and calculation reports for HVAC systems, Heating & Cooling Systems, Fire Protection Systems, Power Distribution Systems, Cable Containment, Single Line Diagrams, Load Scedules, Earthing and Lightning Protection, Fire Alarm Systems, Public Anouncement Systems, Telephone & Data Systems, Security Systems, Music Systems, Lighting Control Systems, Building Managment Systems (BMS)
                                                                 </p>
@@ -671,7 +751,7 @@
                                         <div class="mil-inner-banner services-page no-padding">
                                             <div class="mil-banner-content mil-up">
                                                 <div class="container flex-container">
-                                                    <h1 class="mil-mb-60 mil-light-soft">Consultancy</h1>
+                                                    <h1 class="mil-mb-30">Consultancy</h1>
                                                 </div>
                                                 <div class="mil-banner-image">
                                                     <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1727799712/consultancy_r16m56.webp" alt="Consultancy Works Image">
@@ -683,18 +763,18 @@
                                         <section id="service_consultancy">
                                             <div class="container mil-p-30-30">
                                                 <div class="row justify-content-between">
-                                                    <div class="col-lg-4 mil-relative mil-mb-90">
+                                                    <div class="col-lg-4 mil-relative mil-mb-30">
                                         
-                                                        <h4 class="mil-up mil-mb-30 mil-light-soft">Our <span class="mil-thin">Approach</span> <br>and <span class="mil-thin">Work Specifics</span></h4>
-                                                        <p class="mil-up mil-mb-30 mil-light-soft">At SHP LLC, we prioritize excellence in every project. Our approach integrates meticulous planning, top-tier construction practices, and rigorous adherence to both local and international standards. Whether it's MEP systems, architectural design, or project management, we ensure that every aspect is executed with precision and quality. Our team is dedicated to delivering innovative solutions that meet your unique needs, ensuring your project's success from concept to completion.</p>
+                                                        <h4 class="mil-up mil-mb-30">Our <span class="mil-thin">Approach</span> <br>and <span class="mil-thin">Work Specifics</span></h4>
+                                                        <p class="mil-up mil-mb-30">At SHP LLC, we prioritize excellence in every project. Our approach integrates meticulous planning, top-tier construction practices, and rigorous adherence to both local and international standards. Whether it's MEP systems, architectural design, or project management, we ensure that every aspect is executed with precision and quality. Our team is dedicated to delivering innovative solutions that meet your unique needs, ensuring your project's success from concept to completion.</p>
 
                                                         <a href="portfolio" class="mil-services-button mil-button mil-arrow-place"><span>Our Projects</span></a>
                                         
                                                     </div>
                                                     <div class="col-lg-6">
                                         
-                                                        <div class="mil-accordion-group mil-up mil-light-soft">
-                                                            <div class="mil-accordion-menu mil-light-soft">                                        
+                                                        <div class="mil-accordion-group mil-up">
+                                                            <div class="mil-accordion-menu">                                        
                                                                 <p class="service-accordion-head">Project Management Services</p>
                                         
                                                                 <div class="mil-symbol mil-h3">
@@ -702,7 +782,7 @@
                                                                     <div class="mil-minus">-</div>
                                                                 </div>                                        
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     •	Preparation of Project Management Plans, defining and adopting project management procedures, including integration of process groups and Change Management process;<br>
                                                                     •	Preparation of Scope Management Plan, basing on developed Work Breakdown Structure;<br>
@@ -718,7 +798,7 @@
                                                         </div>
                                         
                                                         <div class="mil-accordion-group mil-up">
-                                                            <div class="mil-accordion-menu mil-light-soft">
+                                                            <div class="mil-accordion-menu">
                                         
                                                                 <p class="service-accordion-head">Third Party Consultancy</p>
                                         
@@ -728,7 +808,7 @@
                                                                 </div>
                                         
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     •	Quality Assurance- Preparation of Quality Management Plan, defining and adopting of Quality Management Procedures on site, Review of the Project Design Documentation, implementation of Material Approval Process and Installation Method of Statement preparation and approval processes;<br>
                                                                     •	Quality Control- control of the site activities, compliance of the installation processes, according to the approved Methods of Statement; checking of the materials quality on site; Preparation of Notifications for Inspection (NFI) and Non-Conformance Reports (NCR); Managing of the quality control processes on site;<br>
@@ -739,7 +819,7 @@
                                                         </div>
                                         
                                                         <div class="mil-accordion-group mil-up">
-                                                            <div class="mil-accordion-menu mil-light-soft">
+                                                            <div class="mil-accordion-menu">
                                         
                                                                 <p class="service-accordion-head">Feasibility Study and Expert Judgement</p>
                                         
@@ -749,7 +829,7 @@
                                                                 </div>
                                         
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     •	Preparation of feasibility reports for various projects and works, defining of key performance indicators, presentations of high level executive summary; <br>
                                                                     •	Preparation of detailed analysis and reports for various solutions and options for implementation of various projects;<br>
@@ -759,7 +839,7 @@
                                                         </div>  
                                                         
                                                         <div class="mil-accordion-group mil-up">
-                                                            <div class="mil-accordion-menu mil-light-soft">
+                                                            <div class="mil-accordion-menu">
                                         
                                                                 <p class="service-accordion-head">Facilities Management Services</p>
                                         
@@ -769,7 +849,7 @@
                                                                 </div>
                                         
                                                             </div>
-                                                            <div class="mil-accordion-content mil-light-soft">
+                                                            <div class="mil-accordion-content">
                                                                 <p class="mil-mb-30">
                                                                     •	Preparation and adopting of Facilities Management Plans on early and later stages of the projects, basing on Operational needs;<br>
                                                                     •	Preparation and adopting of the Manuals for Tenants and Residents during occupation of the buildings, basing of the standards applied to the building construction, centralized system specifics, logistic processes, HSE procedures and operational needs;<br>
@@ -788,112 +868,12 @@
                             </div>
                         </div>
                     </div>
-                </section>
-                
+                </section>                
                 <!-- services end -->
-
-                <!-- team -->
-                <section id="team">
-                    <div class="container mil-p-120-30">
-                        <div class="row justify-content-between align-items-center">
-                            <div class="col-lg-5 col-xl-4">
-
-                                <div class="mil-mb-90">
-                                    <h2 class="mil-up mil-mb-60">Meet <br>Our Team</h2>
-                                    <p class="mil-up mil-mb-30">We are talented individuals who are passionate about bringing ideas to life. With a diverse range of backgrounds and skill sets, we collaborate to produce effective solutions for our clients.</p>
-
-                                    <p class="mil-up mil-mb-60">Together, our creative team is committed to delivering impactful work that exceeds expectations.</p>
-
-                                    <div class="mil-up"><a href="team" class="mil-button mil-arrow-place mil-mb-60"><span>Read more</span></a></div>
-
-                                    <h4 class="mil-up"><span class="mil-thin">We</span> delivering <br><span class="mil-thin">exceptional</span> results.</h4>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-6">
-
-                                <div class="mil-team-list">
-                                    <div class="mil-lines-place"></div>
-
-                                    <div class="row mil-mb-60">
-                                        <div class="col-sm-6">
-
-                                            <div class="mil-team-card mil-up mil-mb-30">
-                                                <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1728982637/1_l9uh07.jpg" alt="Team member 1">
-                                                <div class="mil-description">
-                                                    <div class="mil-secrc-text">
-                                                        <h5 class="mil-muted mil-mb-5"><a href="/team"></a></h5>
-                                                        <!-- <h5 class="mil-muted mil-mb-5"><a href="/team">Teymur Yusifov</a></h5>
-                                                        <p class="mil-link mil-light-soft mil-mb-10">Founder</p>
-                                                        <ul class="mil-social-icons mil-center">
-                                                            <li><a href="https://www.linkedin.com/in/tyusifov/" target="_blank" class="social-icon" data-no-swup> <i class="fab fa-linkedin"></i></a></li>
-                                                        </ul> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="mil-team-card mil-up mil-mb-30">
-                                                <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1726902753/IMG_4494_wukgal.jpg" alt="Team member 2">
-                                                <div class="mil-description">
-                                                    <div class="mil-secrc-text">
-                                                        <h5 class="mil-muted mil-mb-5"><a href="/team"></a></h5>
-                                                        <!-- <h5 class="mil-muted mil-mb-5"><a href="/team">Nazlı Allahverdiyeva</a></h5>
-                                                        <p class="mil-link mil-light-soft mil-mb-10">Commercial Manager</p> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-sm-6">
-
-                                            <p class="mil-mobile-hidden mil-text-sm mil-mb-30" style="height: 30px;"><span class="mil-accent"></span></p>
-
-                                            <div class="mil-team-card mil-up mil-mb-30">
-                                                <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1726902752/IMG_4493_xae5jt.jpg" alt="Team member 3">
-                                                <div class="mil-description">
-                                                    <div class="mil-secrc-text">
-                                                        <h5 class="mil-muted mil-mb-5"><a href="/team"></a></h5>
-                                                        <!-- <h5 class="mil-muted mil-mb-5"><a href="/team">Sabina Mammadova</a></h5>
-                                                        <p class="mil-link mil-light-soft mil-mb-10">Technical Office Manager</p> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mil-team-card mil-up mil-mb-30">
-                                                <img src="https://res.cloudinary.com/dlarkoumm/image/upload/v1726999477/team4_kduwrt.jpg" alt="Team member 4">
-                                                <div class="mil-description">
-                                                    <div class="mil-secrc-text">
-                                                        <h5 class="mil-muted mil-mb-5"><a href="/team"></a></h5>
-                                                        <!-- <h5 class="mil-muted mil-mb-5"><a href="/team">Sabina Mammadova</a></h5> -->
-                                                        <!-- <p class="mil-link mil-light-soft mil-mb-10">Technical Office Manager</p> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- <div>
-                                                <div class="mil-team-card mil-up mil-mb-30" id="photo-slider">
-                                                    <img src="img/preffered_photos/4.jpg" alt="Team members at work photo" id="slider-img">
-                                                    <div class="mil-description">
-                                                        <div class="mil-secrc-text">
-                                                            <h5 class="mil-muted mil-mb-5"><a href="/team">Team at work</a></h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="slider-navigation">
-                                                    <button id="prev-btn" class="slider-arrow">&lt;</button>
-                                                    <button id="next-btn" class="slider-arrow">&gt;</button>
-                                                </div>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- team end -->
 
                 <!-- reviews -->
                 <section id="reviews" class="mil-soft-bg">
-                    <div class="container mil-p-120-120">
+                    <div class="container mil-p-30-30">
 
                         <div class="row">
                             <div class="col-lg-10">
@@ -903,9 +883,9 @@
                             </div>
                         </div>
 
-                        <h2 class="mil-center mil-up mil-mb-60">Clients <span class="mil-thin">Voices:</span> <br>Hear What <span class="mil-thin">They Say!</span></h2>
+                        <h2 class="mil-center mil-up mil-mb-30">Clients <span class="mil-thin">Voices:</span> <br>Hear What <span class="mil-thin">They Say!</span></h2>
 
-                        <div class="mil-revi-pagination mil-up mil-mb-60"></div>
+                        <div class="mil-revi-pagination mil-up mil-mb-30"></div>
 
                         <div id="partners_up" class="row mil-relative justify-content-center">
                             <div class="col-lg-8">
@@ -954,7 +934,7 @@
 
                 <!-- partners -->
                 <div id="partners" class="mil-soft-bg">
-                    <div class="container mil-p-0-120">
+                    <div class="container mil-p-0-60">
 
                         <div class="swiper-container mil-infinite-show mil-up">
                             <div class="swiper-wrapper">

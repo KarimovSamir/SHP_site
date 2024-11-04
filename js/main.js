@@ -109,20 +109,39 @@ $(function () {
     anchor scroll
 
     ***************************/
+    // $(document).on('click', 'a[href^="#"]', function (event) {
+    //     event.preventDefault();
+
+    //     var target = $($.attr(this, 'href'));
+    //     var offset = 0;
+
+    //     if ($(window).width() < 1200) {
+    //         offset = 90;
+    //     }
+
+    //     $('html, body').animate({
+    //         scrollTop: target.offset().top - offset
+    //     }, 400);
+    // });
     $(document).on('click', 'a[href^="#"]', function (event) {
         event.preventDefault();
-
+    
         var target = $($.attr(this, 'href'));
-        var offset = 0;
-
-        if ($(window).width() < 1200) {
-            offset = 90;
+    
+        // Проверяем, существует ли элемент на странице
+        if (target.length) {
+            var offset = 0;
+    
+            if ($(window).width() < 1200) {
+                offset = 90;
+            }
+    
+            $('html, body').animate({
+                scrollTop: target.offset().top - offset
+            }, 400);
         }
-
-        $('html, body').animate({
-            scrollTop: target.offset().top - offset
-        }, 400);
     });
+    
 
     /***************************
 

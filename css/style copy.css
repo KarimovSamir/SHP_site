@@ -1,3 +1,13 @@
+/* -------------------------------------------
+
+Name: 		Ruizarch
+Version:    1.0
+Developer:	Nazar Miller (millerDigitalDesign)
+Portfolio:  https://themeforest.net/user/millerdigitaldesign/portfolio?ref=MillerDigitalDesign
+
+p.s. I am available for Freelance hire (UI design, web development). email: miller.themes@gmail.com
+
+------------------------------------------- */
 /*--------------------------------------------
 
 1. common
@@ -1063,8 +1073,6 @@ backgrounds
   background-color: rgb(242, 242, 242);
 }
 
-
-
 /* -------------------------------------------
 
 spaces
@@ -1175,15 +1183,6 @@ spaces
 @media screen and (max-width: 992px) {
   .mil-p-60-0 {
     padding-top: 30px;
-  }
-}
-
-.mil-p-30-0 {
-  padding-top: 30px;
-}
-@media screen and (max-width: 992px) {
-  .mil-p-30-0 {
-    padding-top: 0px;
   }
 }
 
@@ -1991,21 +1990,6 @@ banner
       -ms-flex-align: end;
           align-items: flex-end;
 }
-
-.mil-slideshow-text {
-  position: absolute;
-  top: 120px;
-  right: 60px;
-  color: #FFFFFF;
-  font-size: 30px;
-  font-weight: bold;
-  z-index: 1;
-  text-align: left;
-  line-height: 1.4;
-  user-select: none; /* Отключение выделения текста */
-  pointer-events: none; /* Отключение событий мыши на тексте */
-}
-
 .mil-banner .mil-banner-content {
   width: 100%;
   padding-bottom: 60px;
@@ -2837,31 +2821,22 @@ team
 
 ------------------------------------------- */
 
-.mil-team-image {
-  width: 100%; /* Устанавливаем ширину изображения в 100% от родительского контейнера */
-  max-width: 107%; /* Убедимся, что изображение не выходит за границы */
-  height: auto; /* Сохраняем пропорции изображения */
-  margin-top: 0px; /* Отступ сверху для разделения с кнопкой */
-  border-radius: 5px; /* Добавляем скругление углов, если требуется */
+.team-grid {
+  display: flex;
+  gap: 30px; /* Отступы между колонками */
 }
 
 .mil-team-card {
   position: relative;
   overflow: hidden;
-  /* padding-bottom: 130%; */
-  padding-bottom: 160%;
-  max-width: 200px;
+  padding-bottom: 130%;
+  width: 100%;
+  flex: 1 1 0;
+  max-width: 100px; /* Задайте ширину одной колонки по необходимости */
 }
 
-.mil-team-page-card {
-  max-width: 260px !important;
-}
-
-@media (min-width: 992px) {
-  .col-lg-6-team {
-    flex: 0 0 auto;
-    width: 58%;
-  }
+.team-grid > .mil-team-card:nth-child(odd) {
+  margin-right: 30px; /* Отступ справа для выравнивания */
 }
 
 .mil-team-card:after {
@@ -5021,7 +4996,7 @@ main page tabs for 'services'
   font-size: 15px;
   list-style: none;
   background: transparent;
-  /* box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
   display: inline-block;
   border-radius: 50px;
   position: relative;
@@ -5030,7 +5005,7 @@ main page tabs for 'services'
 
 ._main_tabs_services-tab {
   text-decoration: none;
-  color: #000000;
+  color: #fff;
   text-transform: uppercase;
   padding: 20px 30px;
   display: inline-block;
@@ -5040,7 +5015,7 @@ main page tabs for 'services'
 }
 
 ._main_tabs_services-tab.active {
-  color: #ffffff;
+  color: #fff;
 }
 
 ._main_tabs_services-tab i {
@@ -5061,28 +5036,15 @@ main page tabs for 'services'
 }
 
 /* Center tabs container */
-.mil-soft-bg ._main_tabs_services-tabs {
+.mil-dark-bg ._main_tabs_services-tabs {
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
 }
 
 /* Adjust tab content spacing */
-.mil-soft-bg .mil-tab-content {
-  margin-top: 40px;
-}
-
-/* Center tabs container */
-.mil-services-bg ._main_tabs_services-tabs {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  margin-bottom: 20px;
-}
-
-/* Adjust tab content spacing */
-.mil-services-bg .mil-tab-content {
+.mil-dark-bg .mil-tab-content {
   margin-top: 40px;
 }
 
@@ -5100,7 +5062,7 @@ main page tabs for 'services'
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 500;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 /* -------------------------------------------

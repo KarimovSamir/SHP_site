@@ -59,6 +59,14 @@ document.addEventListener("DOMContentLoaded", function () {
             'portfolio.html'
         ];
 
+        const slideshowTexts = [
+            "Bilgah Beach Hotel<br>Baku, Azerbaijan",
+            "Azure Business Center<br>Baku, Azerbaijan",
+            "Ganjlik Mall<br>Baku, Azerbaijan",
+            "Vasilchuki Chaihona №1<br>Baku, Azerbaijan",
+            "Bravo Hypermarket<br>Baku, Azerbaijan"
+        ];
+
         let currentImageIndex = 0;
         const slideshowImageElement = document.getElementById('slideshow-image');
         const slideshowLinkElement = document.getElementById('slideshow-link');
@@ -71,6 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
             currentImageIndex = (index + slideshowImages.length) % slideshowImages.length;
             slideshowImageElement.src = slideshowImages[currentImageIndex];
             slideshowLinkElement.href = slideshowLinks[currentImageIndex];
+
+            const slideshowTextElement = document.getElementById('slideshow-text');
+            // slideshowTextElement.textContent = slideshowTexts[currentImageIndex];
+            slideshowTextElement.innerHTML = slideshowTexts[currentImageIndex];
         }
 
         function startSlideshow() {
@@ -91,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
             startSlideshow();
         });
 
+        showSlide(0);
         startSlideshow();
     }
 
