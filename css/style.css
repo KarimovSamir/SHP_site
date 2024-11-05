@@ -1178,6 +1178,15 @@ spaces
   }
 }
 
+.mil-p-0-60 {
+  padding-bottom: 60px;
+}
+@media screen and (max-width: 992px) {
+  .mil-p-0-60 {
+    padding-bottom: 30px;
+  }
+}
+
 .mil-p-30-0 {
   padding-top: 30px;
 }
@@ -2591,7 +2600,7 @@ about
 .mil-about-photo .mil-lines-place {
   position: absolute;
   top: -120px;
-  left: -27%;
+  left: -57%;
 }
 
 /* -------------------------------------------
@@ -2967,7 +2976,7 @@ team
 .mil-team-list .mil-lines-place {
   position: absolute;
   top: -120px;
-  left: -22.5%;
+  left: -10.8%;
 }
 
 /* -------------------------------------------
