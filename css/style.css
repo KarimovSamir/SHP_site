@@ -5155,3 +5155,28 @@ slideshow buttons
 .mil-banner-content svg {
     pointer-events: auto;
 }
+
+/* -------------------------------------------
+
+main page "our projects" button
+
+------------------------------------------- */
+
+.centered-button {
+  display: flex;
+  justify-content: center; 
+  width: auto; 
+  margin: 0 auto;
+}
+
+.button-wrapper-slider {
+  display: flex;
+  justify-content: center; /* Центрируем содержимое */
+  width: 100%; /* Занимаем всю ширину родительского контейнера */
+}
+
+.centered-button-alt {
+  text-align: center; 
+  width: auto; /* Убираем растягивание кнопки */
+  margin: 0; /* Сбрасываем отступы, если есть */
+}
