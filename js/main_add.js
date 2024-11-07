@@ -29,7 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function init() {
-        frame.classList.remove('mil-frame-visible');
+        if (frame) {
+            frame.classList.remove('mil-frame-visible');
+        }
+
         bannerSection = document.querySelector('.mil-banner');
         checkVideoVisibility();
 
@@ -70,6 +73,15 @@ document.addEventListener("DOMContentLoaded", function () {
         let currentImageIndex = 0;
         const slideshowImageElement = document.getElementById('slideshow-image');
         const slideshowLinkElement = document.getElementById('slideshow-link');
+        const slideshowTextElement = document.getElementById('slideshow-text');
+        const nextSlideButton = document.getElementById("nextSlide");
+        const prevSlideButton = document.getElementById("prevSlide");
+
+        // Проверка на наличие элементов
+        if (!slideshowImageElement || !slideshowLinkElement || !slideshowTextElement || !nextSlideButton || !prevSlideButton) {
+            console.warn("Some slideshow elements are missing in the DOM.");
+            return;
+        }
 
         if (window.slideshowInterval) {
             clearInterval(window.slideshowInterval);
@@ -79,9 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
             currentImageIndex = (index + slideshowImages.length) % slideshowImages.length;
             slideshowImageElement.src = slideshowImages[currentImageIndex];
             slideshowLinkElement.href = slideshowLinks[currentImageIndex];
-
-            const slideshowTextElement = document.getElementById('slideshow-text');
-            // slideshowTextElement.textContent = slideshowTexts[currentImageIndex];
             slideshowTextElement.innerHTML = slideshowTexts[currentImageIndex];
         }
 
@@ -91,13 +100,13 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 3000);
         }
 
-        document.getElementById("nextSlide").addEventListener("click", function() {
+        nextSlideButton.addEventListener("click", function() {
             clearInterval(window.slideshowInterval);
             showSlide(currentImageIndex + 1);
             startSlideshow();
         });
 
-        document.getElementById("prevSlide").addEventListener("click", function() {
+        prevSlideButton.addEventListener("click", function() {
             clearInterval(window.slideshowInterval);
             showSlide(currentImageIndex - 1);
             startSlideshow();
@@ -109,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     init();
 
+    // Повторная инициализация при обновлении контента Swup
     document.addEventListener("swup:contentReplaced", function() {
         init();
     });

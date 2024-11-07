@@ -1,3 +1,10 @@
+let swup;
+
+function navigateToAnchor(event, url) {
+    event.preventDefault();
+    swup.loadPage({ url: url });
+}
+
 $(function () {
 
     "use strict";
@@ -13,7 +20,8 @@ $(function () {
         linkSelector: 'a:not([data-no-swup])',
         animationSelector: '[class="mil-main-transition"]'
     };
-    const swup = new Swup(options);
+    swup = new Swup(options);
+
 
     /***************************
 
@@ -104,6 +112,7 @@ $(function () {
             $('.mil-preloader').addClass("mil-hidden");
         },
     }, "-=1");
+    
     /***************************
 
     anchor scroll
@@ -515,6 +524,18 @@ $(function () {
 
     ------------------------------------------------------------
     ----------------------------------------------------------*/
+    document.addEventListener("swup:contentReplaced", (event) => {
+        const hash = window.location.hash;
+        if (hash) {
+            const target = document.querySelector(hash);
+            if (target) {
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: "smooth" });
+                }, 100); // Добавляем небольшую задержку для корректной прокрутки
+            }
+        }
+    });
+    
     document.addEventListener("swup:contentReplaced", function () {
 
         $('html, body').animate({

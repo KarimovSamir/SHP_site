@@ -5215,3 +5215,7 @@ main page "our projects" button
   width: auto; /* Убираем растягивание кнопки */
   margin: 0; /* Сбрасываем отступы, если есть */
 }
+
+footer + * {
+  display: none;
+}
