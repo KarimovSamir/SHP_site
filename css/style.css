@@ -3764,19 +3764,28 @@ portfolio
 map
 
 ***************************/
+
+.mil-map-container {
+  width: 1000px; 
+  /* height: 480px;  */
+  margin: 0 auto; 
+  /* background-color: #f5f5f5;  */
+  padding-bottom: 30px;
+}
+
 .mil-map-frame {
   background-color: rgb(229, 229, 229);
   pointer-events: all;
-  height: 600px;
+  height: 500px;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .mil-map-frame .mil-map {
   position: absolute;
-  top: -25%;
-  left: -25%;
-  width: 150%;
-  height: 150%;
+  /* top: -25%; */
+  /* left: -25%; */
+  width: 100%;
+  height: 100%;
   -webkit-transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
   transition: 0.4s cubic-bezier(0, 0, 0.3642, 1);
 }
@@ -5206,16 +5215,61 @@ main page "our projects" button
 
 .button-wrapper-slider {
   display: flex;
-  justify-content: center; /* Центрируем содержимое */
-  width: 100%; /* Занимаем всю ширину родительского контейнера */
+  justify-content: center; 
+  width: 100%; 
 }
 
 .centered-button-alt {
   text-align: center; 
-  width: auto; /* Убираем растягивание кнопки */
-  margin: 0; /* Сбрасываем отступы, если есть */
+  width: auto;
+  margin: 0; 
 }
 
-footer + * {
+/* footer + * {
   display: none;
+} */
+
+.mil-dark-container {
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-size: 18px;
+  gap: 50px; 
+  text-align: center;
+}
+
+.mil-info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Расстояние между иконкой и текстом */
+  text-align: left;
+}
+
+.mil-info-item i {
+  font-size: 20px; /* Размер иконок */
+  color: rgb(41, 178, 74); /* Цвет иконок, можно изменить */
+}
+
+.mil-info-item p,
+.mil-info-item a {
+  margin: 0;
+  color: #333; /* Цвет текста */
+}
+
+.mil-info-item a {
+  text-decoration: none; /* Убирает подчеркивание у ссылки */
+  color: #333; /* Цвет ссылки */
+}
+
+.mil-info-item:hover i, 
+.mil-info-item:hover a {
+  color: rgb(41, 178, 74); /* Цвет при наведении */
+}
+
+
+.mil-dark-contact {
+  padding: 20px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Фон контейнера */
 }
