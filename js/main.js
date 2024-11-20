@@ -136,6 +136,10 @@ $(function () {
         event.preventDefault();
     
         var target = $($.attr(this, 'href'));
+
+        if (href === '#') {
+            return;
+        }
     
         // Проверяем, существует ли элемент на странице
         if (target.length) {

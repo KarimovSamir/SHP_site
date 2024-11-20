@@ -5273,3 +5273,7 @@ main page "our projects" button
   border-radius: 8px;
   background-color: #f9f9f9; /* Фон контейнера */
 }
+
+.mil-font-size-20 {
+  font-size: 20px;
+}
