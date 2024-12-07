@@ -1221,6 +1221,17 @@ spaces
   }
 }
 
+.mil-p-15-15 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+@media screen and (max-width: 992px) {
+  .mil-p-15-15 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
 .mil-p-30-0 {
   padding-top: 30px;
 }
@@ -1320,6 +1331,10 @@ spaces
 }
 .mil-p-60-10 {
   padding-top: 60px;
+  padding-bottom: 10px;
+}
+.mil-p-30-10 {
+  padding-top: 30px;
   padding-bottom: 10px;
 }
 @media screen and (max-width: 992px) {
@@ -1547,7 +1562,8 @@ frame
 .mil-frame {
   padding: 50px 60px 60px 60px;
   position: fixed;
-  z-index: 2;
+  /* z-index: 2; */
+  z-index: 999;
   pointer-events: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1660,6 +1676,7 @@ menu button
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -2041,7 +2058,7 @@ banner
   top: 120px;
   right: 60px;
   color: #FFFFFF;
-  font-size: 30px;
+  font-size: 24px;
   font-weight: bold;
   z-index: 1;
   text-align: left;
@@ -3407,7 +3424,8 @@ footer
 
 ------------------------------------------- */
 .mil-footer-menu {
-  margin-bottom: 120px;
+  /* margin-bottom: 120px; */
+  margin-bottom: 45px;
 }
 .mil-footer-menu ul li {
   list-style-type: none;
@@ -3800,7 +3818,7 @@ accordion
 ------------------------------------------- */
 .mil-accordion-group {
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 .mil-accordion-group .mil-accordion-menu {
   display: -webkit-box;
@@ -3813,7 +3831,7 @@ accordion
       -ms-flex-pack: justify;
           justify-content: space-between;
   cursor: pointer;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 .mil-accordion-group .mil-accordion-menu .mil-symbol {
   border-radius: 50%;
@@ -4687,15 +4705,15 @@ footer style
   }
 }
 
-.LogoBrightless{
-  filter: brightness(0%);
+/* .LogoBrightless{
+  filter: brightness(100%);
 }
 
 @media screen and (max-width: 1200px) {
   .LogoBrightless {
     filter: brightness(100%);
   }
-}
+} */
 
 /* @media screen and (max-width: 1200px) {
   .preloader-logo {
@@ -4812,11 +4830,10 @@ li::marker {
   justify-content: space-between;
   width: 100%;
   z-index: 999;
-
-  height: 90px;
+  height: 70px;
   background-color: rgb(255, 255, 255);
   border-bottom: solid 1px rgba(255, 255, 255, 0.1);
-  padding: 20px 60px 20px 60px;
+  padding: 10px 20px 10px 20px;
   -webkit-backdrop-filter: blur(8px);
           backdrop-filter: blur(8px);
 }
@@ -4993,7 +5010,7 @@ main page tabs for 'about us'
 
 /* Стили для вкладок */
 ._main_tabs_about_us-tabs {
-  margin-top: 90px;
+  margin-top: 30px;
   /* margin-bottom: 30px; */
   font-size: 15px;
   list-style: none;
@@ -5131,7 +5148,7 @@ main page tabs for 'services'
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 /* Adjust tab content spacing */
@@ -5276,4 +5293,68 @@ main page "our projects" button
 
 .mil-font-size-20 {
   font-size: 20px;
+}
+
+/* -------------------------------------------
+
+Новый стиль для селектора языка
+
+------------------------------------------- */
+
+/* Стили для селектора языка */
+.mil-lang-selector {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.mil-lang-menu {
+  margin-right: 32px;
+  margin-bottom: 0;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 100%;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+
+.mil-lang-toggle {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Добавляем стрелку вниз с помощью псевдоэлемента */
+.mil-lang-toggle::after {
+  content: ' ▼';
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.mil-lang-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgb(255, 255, 255);
+  min-width: 80px;
+  z-index: 3;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  padding: 5px 0;
+}
+
+.mil-lang-options a {
+  color: rgb(0, 0, 0);
+  padding: 8px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 16px;
+}
+
+.mil-lang-options a:hover {
+  background-color: #f1f1f1;
+}
+
+.mil-lang-selector:hover .mil-lang-options {
+  display: block;
 }

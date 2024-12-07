@@ -1,22 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
     function initializeScripts() {
         // Логика для меню
-        const menuLinks = document.querySelectorAll('.mil-main-menu a');
-        const menuButton = document.querySelector('.mil-menu-btn');
+        // const menuLinks = document.querySelectorAll('.mil-main-menu a');
+        // const menuButton = document.querySelector('.mil-menu-btn');
 
-        menuLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                if (link.getAttribute('href').startsWith('#')) {
-                    closeMenu();
-                }
-            });
-        });
+        // menuLinks.forEach(link => {
+        //     link.addEventListener('click', function(event) {
+        //         if (link.getAttribute('href').startsWith('#')) {
+        //             closeMenu();
+        //         }
+        //     });
+        // });
 
-        function closeMenu() {
-            if (menuButton.classList.contains('mil-active')) {
-                menuButton.click();
-            }
-        }
+        // function closeMenu() {
+        //     if (menuButton.classList.contains('mil-active')) {
+        //         menuButton.click();
+        //     }
+        // }
 
         // Логика вкладок для секции "about us"
         function initAboutTabs() {
@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateAboutSelector();
             updateServiceSelector();
         });
+        console.log('Scripts initialized');
     }
 
     // Инициализация при загрузке контента

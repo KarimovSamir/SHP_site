@@ -17,7 +17,7 @@ $(function () {
     const options = {
         containers: ['#swupMain', '#swupMenu'],
         animateHistoryBrowsing: true,
-        linkSelector: 'a:not([data-no-swup])',
+        linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
         animationSelector: '[class="mil-main-transition"]'
     };
     swup = new Swup(options);
@@ -118,42 +118,103 @@ $(function () {
     anchor scroll
 
     ***************************/
-    // $(document).on('click', 'a[href^="#"]', function (event) {
-    //     event.preventDefault();
-
-    //     var target = $($.attr(this, 'href'));
-    //     var offset = 0;
-
-    //     if ($(window).width() < 1200) {
-    //         offset = 90;
-    //     }
-
-    //     $('html, body').animate({
-    //         scrollTop: target.offset().top - offset
-    //     }, 400);
-    // });
     $(document).on('click', 'a[href^="#"]', function (event) {
         event.preventDefault();
     
-        var target = $($.attr(this, 'href'));
-
+        // Получаем значение атрибута href
+        var href = $(this).attr('href');
+    
+        // Если якорная ссылка ведет на "#", то ничего не делаем
         if (href === '#') {
             return;
         }
     
-        // Проверяем, существует ли элемент на странице
-        if (target.length) {
-            var offset = 0;
+        // Проверяем, находится ли якорь на текущей странице
+        const target = $(href);
+        const currentUrl = window.location.pathname + window.location.search;
     
-            if ($(window).width() < 1200) {
-                offset = 90;
-            }
+        // Если элемент присутствует, выполняем плавный скролл
+        if (target.length) {
+            const offset = $(window).width() < 1200 ? 90 : 0;
     
             $('html, body').animate({
                 scrollTop: target.offset().top - offset
             }, 400);
+        } else {
+            // Если якорь ведет на другую страницу, проверяем текущий URL
+            const targetUrl = href.startsWith('/') ? href : `/${href}`;
+            if (currentUrl !== targetUrl.split('#')[0]) {
+                swup.loadPage({ url: targetUrl });
+            } else {
+                // Если это та же страница, но элемент недоступен, просто добавляем якорь в адрес
+                window.location.hash = href;
+            }
         }
     });
+    // $(document).on('click', 'a[href^="#"]', function (event) {
+    //     event.preventDefault();
+    
+    //     // Получаем значение атрибута href
+    //     var href = $(this).attr('href');
+    
+    //     // Если якорная ссылка ведет на "#", то ничего не делаем
+    //     if (href === '#') {
+    //         return;
+    //     }
+    
+    //     // Проверяем, существует ли элемент на текущей странице
+    //     var target = $(href);
+    //     if (target.length) {
+    //         var offset = 0;
+    
+    //         // Устанавливаем смещение для мобильных устройств
+    //         if ($(window).width() < 1200) {
+    //             offset = 90;
+    //         }
+    
+    //         // Плавный скролл до элемента
+    //         $('html, body').animate({
+    //             scrollTop: target.offset().top - offset
+    //         }, 400);
+    //     } else {
+    //         // Если элемент отсутствует, используем Swup для перехода
+    //         const currentPage = window.location.pathname;
+    //         const targetPage = href.startsWith('/') ? href : `/${href}`;
+    //         if (currentPage !== targetPage) {
+    //             swup.loadPage({ url: targetPage });
+    //         }
+    //     }
+    // });
+
+    // Отмена перехвата якорных ссылок Swup
+    document.addEventListener('swup:clickLink', function (event) {
+        const link = event.detail.link; // Получаем объект ссылки из события
+    
+        // Проверяем, является ли `link` HTML-элементом
+        if (link instanceof HTMLElement && link.getAttribute('href').startsWith('#')) {
+            event.preventDefault(); // Отменяем перехват Swup для якорных ссылок
+        }
+    });
+    
+    
+    // Переинициализация якорных ссылок после замены контента
+    document.addEventListener('swup:contentReplaced', function () {
+        $(document).on('click', 'a[href^="#"]', function (event) {
+            event.preventDefault();
+
+            const href = $(this).attr('href');
+            if (href === '#') return;
+
+            const target = $(href);
+            if (target.length) {
+                const offset = $(window).width() < 1200 ? 90 : 0;
+                $('html, body').animate({
+                    scrollTop: target.offset().top - offset
+                }, 400);
+            }
+        });
+    });
+
     
 
     /***************************
@@ -279,10 +340,11 @@ $(function () {
      menu
 
     ***************************/
+    // Чтобы не открывалось дополнительное меню
     $('.mil-menu-btn').on("click", function () {
         $('.mil-menu-btn').toggleClass('mil-active');
         $('.mil-menu').toggleClass('mil-active');
-        $('.mil-menu-frame').toggleClass('mil-active');
+        // $('.mil-menu-frame').toggleClass('mil-active');
     });
     /***************************
 
@@ -560,7 +622,7 @@ $(function () {
         ***************************/
         $('.mil-menu-btn').removeClass('mil-active');
         $('.mil-menu').removeClass('mil-active');
-        $('.mil-menu-frame').removeClass('mil-active');
+        // $('.mil-menu-frame').removeClass('mil-active');
         /***************************
 
         append
