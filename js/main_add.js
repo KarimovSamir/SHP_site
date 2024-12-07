@@ -1,46 +1,46 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // const frame = document.querySelector('.mil-frame');
-    // let invertFix = document.querySelector('.mi-invert-fix');
-    // let bannerSection = document.querySelector('.mil-banner');
+    const frame = document.querySelector('.mil-frame');
+    let invertFix = document.querySelector('.mi-invert-fix');
+    let bannerSection = document.querySelector('.mil-banner');
 
-    // function checkPageClass() {
-    //     if (bannerSection && bannerSection.classList.contains('mil-mainpage-class') && window.innerWidth > 1200) {
-    //         frame.classList.add('mil-frame-visible');
-    //     } else {
-    //         frame.classList.remove('mil-frame-visible');
-    //     }
-    // }
+    function checkPageClass() {
+        if (bannerSection && bannerSection.classList.contains('mil-mainpage-class') && window.innerWidth > 1200) {
+            frame.classList.add('mil-frame-visible');
+        } else {
+            frame.classList.remove('mil-frame-visible');
+        }
+    }
 
-    // function checkVideoVisibility() {
-    //     invertFix = document.querySelector('.mi-invert-fix');
-    //     if (window.innerWidth > 1200 && invertFix) {
-    //         const rect = invertFix.getBoundingClientRect();
-    //         if (rect.top <= window.innerHeight && rect.bottom >= 0) {
-    //             frame.style.zIndex = '999';
-    //             checkPageClass();
-    //         } else {
-    //             frame.style.zIndex = '2';
-    //             // frame.classList.remove('mil-frame-visible');
-    //         }
-    //     } else {
-    //         frame.style.zIndex = '999';
-    //         checkPageClass();
-    //     }
-    // }
+    function checkVideoVisibility() {
+        invertFix = document.querySelector('.mi-invert-fix');
+        if (window.innerWidth > 1200 && invertFix) {
+            const rect = invertFix.getBoundingClientRect();
+            if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+                frame.style.zIndex = '999';
+                checkPageClass();
+            } else {
+                frame.style.zIndex = '2';
+                frame.classList.remove('mil-frame-visible');
+            }
+        } else {
+            frame.style.zIndex = '999';
+            checkPageClass();
+        }
+    }
 
     function init() {
-        // if (frame) {
-        //     frame.classList.remove('mil-frame-visible');
-        // }
+        if (frame) {
+            frame.classList.remove('mil-frame-visible');
+        }
 
-        // bannerSection = document.querySelector('.mil-banner');
-        // checkVideoVisibility();
+        bannerSection = document.querySelector('.mil-banner');
+        checkVideoVisibility();
 
-        // document.removeEventListener("scroll", checkVideoVisibility);
-        // window.removeEventListener("resize", checkVideoVisibility);
+        document.removeEventListener("scroll", checkVideoVisibility);
+        window.removeEventListener("resize", checkVideoVisibility);
 
-        // document.addEventListener("scroll", checkVideoVisibility);
-        // window.addEventListener("resize", checkVideoVisibility);
+        document.addEventListener("scroll", checkVideoVisibility);
+        window.addEventListener("resize", checkVideoVisibility);
 
         initSlideshow();
     }
