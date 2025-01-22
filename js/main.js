@@ -5,13 +5,13 @@ let swup;
 //     swup.loadPage({ url: url });
 // }
 
-// function navigateToAnchor(event, url) {
-//     event.preventDefault();
-//     const anchor = url.split('#')[1];
-//     if (anchor) {
-//         swup.loadPage({ url: url });
-//     }
-// }
+function navigateToAnchor(event, url) {
+    event.preventDefault();
+    const anchor = url.split('#')[1];
+    if (anchor) {
+        swup.loadPage({ url: url });
+    }
+}
 
 $(function () {
 
@@ -27,37 +27,36 @@ $(function () {
         animateHistoryBrowsing: true,
         linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
         animationSelector: '[class*="mil-main-transition"]',
-        plugins: [
-            new SwupScrollPlugin({
-              // Настраиваем только анимацию якорей, остальное можно выключать
-              animateScroll: {
-                betweenPages: true,      // отключаем анимацию при переходе на другую страницу
-                samePageWithHash: false,   // но включаем анимацию для якорей внутри одной страницы
-                samePage: true            // если просто ссылка на текущую страницу без якоря, если вдруг нужно
-              },              
-            })
-          ],
-        // hooks: {
-        //     'visit:start': (data) => {
-        //         console.log('Starting visit', data.url);
-        //     },
-        //     'contentReplaced': (data) => {
-        //         handleAnchorScroll(data.url);
-        //     }
-        // }
+        // plugins: [
+        //     new SwupScrollPlugin({
+        //       animateScroll: {
+        //         betweenPages: true,      
+        //         samePageWithHash: false,   
+        //         samePage: true           
+        //       },              
+        //     })
+        //   ],
+        hooks: {
+            'visit:start': (data) => {
+                console.log('Starting visit', data.url);
+            },
+            'contentReplaced': (data) => {
+                handleAnchorScroll(data.url);
+            }
+        }
     };
     swup = new Swup(options);
 
-    // function handleAnchorScroll(url) {
-    //     if (url.includes('#')) {
-    //         setTimeout(() => {
-    //             const element = document.getElementById(anchor);
-    //             if (element) {
-    //                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    //             }
-    //         }, 300);
-    //     }
-    // }
+    function handleAnchorScroll(url) {
+        if (url.includes('#')) {
+            setTimeout(() => {
+                const element = document.getElementById(anchor);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 300);
+        }
+    }
 
     
     /***************************
