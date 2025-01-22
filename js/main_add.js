@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    let slideshowInterval; // Глобальная переменная для управления интервалом
 
     function initSlideshow() {
         const slideshowImages = [
@@ -95,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ];
 
         let currentImageIndex = 0;
+
         const slideshowImageElement = document.getElementById('slideshow-image');
         const slideshowLinkElement = document.getElementById('slideshow-link');
         const slideshowTextElement = document.getElementById('slideshow-text');
@@ -106,32 +108,35 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Очищаем старый интервал, если он существует
-        if (window.slideshowInterval) {
-            clearInterval(window.slideshowInterval);
-        }
+        // Очищаем старые обработчики и интервал
+        clearInterval(slideshowInterval);
+        nextSlideButton.replaceWith(nextSlideButton.cloneNode(true));
+        prevSlideButton.replaceWith(prevSlideButton.cloneNode(true));
 
         function showSlide(index) {
             currentImageIndex = (index + slideshowImages.length) % slideshowImages.length;
             slideshowImageElement.src = slideshowImages[currentImageIndex];
             slideshowLinkElement.href = slideshowLinks[currentImageIndex];
-            slideshowTextElement.innerHTML = slideshowTexts[currentImageIndex];
+            slideshowTextElement.textContent = slideshowTexts[currentImageIndex];
         }
 
         function startSlideshow() {
-            window.slideshowInterval = setInterval(() => {
+            slideshowInterval = setInterval(() => {
                 showSlide(currentImageIndex + 1);
             }, 3000);
         }
 
-        nextSlideButton.addEventListener("click", function () {
-            clearInterval(window.slideshowInterval);
+        const newNextButton = document.getElementById("nextSlide");
+        const newPrevButton = document.getElementById("prevSlide");
+
+        newNextButton.addEventListener("click", () => {
+            clearInterval(slideshowInterval);
             showSlide(currentImageIndex + 1);
             startSlideshow();
         });
 
-        prevSlideButton.addEventListener("click", function () {
-            clearInterval(window.slideshowInterval);
+        newPrevButton.addEventListener("click", () => {
+            clearInterval(slideshowInterval);
             showSlide(currentImageIndex - 1);
             startSlideshow();
         });
@@ -141,13 +146,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function initializeScripts() {
-        // console.log('Initializing slideshow...');
+        console.log("Initializing slideshow...");
         initSlideshow();
     }
 
-    // Первоначальная инициализация
+    // Инициализация на загрузке страницы
     initializeScripts();
 
-    // Повторная инициализация после Swup
-    document.addEventListener("swup:contentReplaced", initializeScripts);
+    // Повторная инициализация при замене контента Swup
+    document.addEventListener("swup:animationInDone", () => {
+        console.log("Swup animation completed. Reinitializing slideshow...");
+        initializeScripts();
+    });
 });
