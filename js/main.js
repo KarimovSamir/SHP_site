@@ -1,14 +1,5 @@
 let swup;
 
-// function navigateToAnchor(event, url) {
-//     event.preventDefault();
-//     const anchor = url.split('#')[1];
-
-//     if (anchor) {
-//         swup.navigate(url);
-//     }
-// }
-
 $(function () {
     "use strict";
 
@@ -31,7 +22,7 @@ $(function () {
     };
     swup = new Swup(options);
 
-    const accent = "rgba(255, 152, 0, 1)"; // Определение переменной accent
+    const accent = "rgba(41, 178, 74, 1)"; // Определение переменной accent
 
     function initializeDynamicElements() {
         initializePreloader();
@@ -45,6 +36,7 @@ $(function () {
         initializeSliders();
         initializeScripts();
         initializePortfolioSingle();
+        initializeTabs();
     }
 
     function initializePreloader() {
@@ -135,6 +127,11 @@ $(function () {
     }
 
     function initializeMenu() {
+        // Сначала убираем старые обработчики
+        $('.mil-menu-btn').off('click');
+        $('.mil-main-menu a').off('click');
+    
+        // Вешаем заново
         $('.mil-menu-btn').on("click", function () {
             $(this).toggleClass('mil-active');
             $('.mil-menu').toggleClass('mil-active');
@@ -142,14 +139,18 @@ $(function () {
                 $('.mil-menu-frame').toggleClass('mil-active');
             }
         });
-
-        $('.mil-has-children a').on('click', function () {
-            $('.mil-has-children ul').removeClass('mil-active');
-            $('.mil-has-children a').removeClass('mil-active');
-            $(this).toggleClass('mil-active');
-            $(this).next().toggleClass('mil-active');
+    
+        $('.mil-main-menu a').on('click', function () {
+            if ($('.mil-menu-btn').hasClass('mil-active')) {
+                $('.mil-menu-btn').removeClass('mil-active');
+                $('.mil-menu').removeClass('mil-active');
+                if ($(window).width() < 1070) {
+                    $('.mil-menu-frame').removeClass('mil-active');
+                }
+            }
         });
     }
+    
 
     function initializeCursor() {
         const cursor = document.querySelector('.mil-ball');
@@ -364,6 +365,105 @@ $(function () {
 
         showSlide(0);
         startSlideshow();
+    }
+
+    function initializeTabs() {
+        function initAboutTabs() {
+            const aboutTabs = document.querySelectorAll('._main_tabs_about_us-tab');
+            const aboutTabContents = document.querySelectorAll('.mil-tab-content');
+            const aboutImageElement = document.getElementById('tab-image');
+            const aboutSelector = document.querySelector('._main_tabs_about_us-selector');
+
+            const aboutImageMap = {
+                'about': 'https://res.cloudinary.com/dlarkoumm/image/upload/v1726902814/1_lnanqk.jpg',
+                'mission': 'https://res.cloudinary.com/dlarkoumm/image/upload/v1729795856/vision_edmxrm.jpg',
+                'vision': 'https://res.cloudinary.com/dlarkoumm/image/upload/v1729796245/misssion_mkkup7.jpg'
+            };
+
+            function updateAboutSelectorPosition() {
+                if (!aboutSelector) return;
+
+                const activeTab = document.querySelector('._main_tabs_about_us-tab.active');
+                if (activeTab) {
+                    const activeWidth = activeTab.offsetWidth;
+                    const itemPos = activeTab.offsetLeft;
+                    aboutSelector.style.left = itemPos + 'px';
+                    aboutSelector.style.width = activeWidth + 'px';
+                }
+            }
+
+            aboutTabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    aboutTabs.forEach(t => t.classList.remove('active'));
+                    aboutTabContents.forEach(content => content.classList.remove('active'));
+
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    const contentElement = document.getElementById(tabId + '-content');
+                    if (contentElement) {
+                        contentElement.classList.add('active');
+                    }
+
+                    updateAboutSelectorPosition();
+
+                    if (aboutImageElement) {
+                        aboutImageElement.src = aboutImageMap[tabId];
+                    }
+                });
+            });
+
+            updateAboutSelectorPosition();
+            return updateAboutSelectorPosition;
+        }
+
+        function initServiceTabs() {
+            const serviceTabs = document.querySelectorAll('._main_tabs_services-tab');
+            const serviceTabContents = document.querySelectorAll('.services-section-content');
+            const serviceSelector = document.querySelector('._main_tabs_services-selector');
+
+            function updateServiceSelectorPosition() {
+                if (!serviceSelector) return;
+
+                const activeTab = document.querySelector('._main_tabs_services-tab.active');
+                if (activeTab) {
+                    const activeWidth = activeTab.offsetWidth;
+                    const itemPos = activeTab.offsetLeft;
+                    serviceSelector.style.left = itemPos + 'px';
+                    serviceSelector.style.width = activeWidth + 'px';
+                }
+            }
+
+            serviceTabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    serviceTabs.forEach(t => t.classList.remove('active'));
+                    serviceTabContents.forEach(content => content.classList.remove('active'));
+
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    const contentElement = document.getElementById(tabId + '-content');
+                    if (contentElement) {
+                        contentElement.classList.add('active');
+                    }
+
+                    updateServiceSelectorPosition();
+                });
+            });
+
+            updateServiceSelectorPosition();
+            return updateServiceSelectorPosition;
+        }
+
+        const updateAboutSelector = initAboutTabs();
+        const updateServiceSelector = initServiceTabs();
+
+        window.removeEventListener('resize', handleResize);
+        function handleResize() {
+            updateAboutSelector();
+            updateServiceSelector();
+        }
+        window.addEventListener('resize', handleResize);
     }
 
     function initializePortfolioSingle() {

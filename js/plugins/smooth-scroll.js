@@ -362,7 +362,8 @@ function wheel(event) {
 
     // check if it's a touchpad scroll that should be ignored
     if (isTouchpad(deltaY)) {
-        return true;
+        // return true;
+        return false;
     }
 
     // scale by step size
