@@ -151,7 +151,6 @@ $(function () {
         });
     }
     
-
     function initializeCursor() {
         const cursor = document.querySelector('.mil-ball');
         gsap.set(cursor, { xPercent: -50, yPercent: -50 });
@@ -476,8 +475,9 @@ $(function () {
             }
         }
 
-
         function initPortfolioSingle() {
+            stopAutoSlide();
+            
             const projects = {
                 "rahat_crescent_mall": {
                     title: "Rahat Gourmet Crescent Mall",
@@ -2352,20 +2352,32 @@ $(function () {
             initializeSlider();
             startAutoSlide();
 
-            const prevBtn = document.querySelector('.slider-btn.prev');
-            const nextBtn = document.querySelector('.slider-btn.next');
+            // Удаляем старые обработчики "prev"/"next" через клонирование кнопок
+            const oldPrevBtn = document.querySelector('.slider-btn.prev');
+            const oldNextBtn = document.querySelector('.slider-btn.next');
 
-            prevBtn.addEventListener('click', () => {
-                stopAutoSlide();
-                moveSlide('prev');
-                startAutoSlide();
-            });
+            if (oldPrevBtn && oldNextBtn) {
+                // Клонируем кнопки, чтобы удалить старые обработчики
+                const newPrevBtn = oldPrevBtn.cloneNode(true);
+                const newNextBtn = oldNextBtn.cloneNode(true);
 
-            nextBtn.addEventListener('click', () => {
-                stopAutoSlide();
-                moveSlide('next');
-                startAutoSlide();
-            });
+                // Заменяем старые на новые (без обработчиков)
+                oldPrevBtn.replaceWith(newPrevBtn);
+                oldNextBtn.replaceWith(newNextBtn);
+
+                // Добавляем обработчики заново
+                newPrevBtn.addEventListener('click', () => {
+                    stopAutoSlide();
+                    moveSlide('prev');
+                    startAutoSlide();
+                });
+
+                newNextBtn.addEventListener('click', () => {
+                    stopAutoSlide();
+                    moveSlide('next');
+                    startAutoSlide();
+                });
+            }
         }
 
         function initializeSlider() {
