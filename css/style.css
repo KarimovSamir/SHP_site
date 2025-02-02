@@ -5754,6 +5754,13 @@ portfolio same projects
 
 .mil-hashtag:hover {
   background-color: #e0e0e0; /* Чуть более тёмный фон при ховере */
+  color: #0000EE;
+  text-shadow: 0 0 12px #0000EE;
+}
+
+.mil-hashtag:hover::before {
+  color: #0000EE;
+  text-shadow: 0 0 12px #0000EE;
 }
 
 .mil-related-projects {

@@ -1,5 +1,14 @@
 let swup;
 
+let autoSlideInterval;
+
+    function stopAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = null;
+        }
+    }
+
 $(function () {
     "use strict";
 
@@ -466,14 +475,14 @@ $(function () {
     }
 
     function initializePortfolioSingle() {
-        let autoSlideInterval;
+        // let autoSlideInterval;
 
-        function stopAutoSlide() {
-            if (autoSlideInterval) {
-                clearInterval(autoSlideInterval);
-                autoSlideInterval = null;
-            }
-        }
+        // function stopAutoSlide() {
+        //     if (autoSlideInterval) {
+        //         clearInterval(autoSlideInterval);
+        //         autoSlideInterval = null;
+        //     }
+        // }
 
         function initPortfolioSingle() {
             stopAutoSlide();
@@ -2425,6 +2434,7 @@ $(function () {
 
     // Инициализация при загрузке страницы
     initializeDynamicElements();
+    // initializePortfolioSingle();
 
     // Повторная инициализация после Swup
     document.addEventListener("swup:animationInDone", () => {
