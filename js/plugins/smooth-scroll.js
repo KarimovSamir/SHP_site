@@ -377,7 +377,13 @@ function wheel(event) {
     }
 
     scrollArray(overflowing, deltaX, deltaY);
-    event.preventDefault();
+    // event.preventDefault();
+    const isMac = navigator.userAgent.includes('Mac');
+
+    if (!isMac) {
+        event.preventDefault();
+    }
+    
     scheduleClearCache();
 }
 
