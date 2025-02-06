@@ -24,7 +24,7 @@ $(function () {
         animationSelector: '[class*="mil-main-transition"]',
         hooks: {
             'page:view': () => {
-                console.log('Контент обновлён. Выполняем повторную инициализацию...');
+                // console.log('Контент обновлён. Выполняем повторную инициализацию...');
                 initializeDynamicElements();
             },
         }
@@ -35,7 +35,7 @@ $(function () {
 
     function initializeDynamicElements() {
         initializePreloader();
-        initializeAnchorScroll();
+        // initializeAnchorScroll();
         initializeAppend();
         initializeAccordion();
         initializeMenu();
@@ -343,11 +343,23 @@ $(function () {
         nextSlideButton.replaceWith(nextSlideButton.cloneNode(true));
         prevSlideButton.replaceWith(prevSlideButton.cloneNode(true));
 
+        // function showSlide(index) {
+        //     currentImageIndex = (index + slideshowImages.length) % slideshowImages.length;
+        //     slideshowImageElement.src = slideshowImages[currentImageIndex];
+        //     slideshowLinkElement.href = slideshowLinks[currentImageIndex];
+        //     slideshowTextElement.textContent = slideshowTexts[currentImageIndex];
+        // }
         function showSlide(index) {
-            currentImageIndex = (index + slideshowImages.length) % slideshowImages.length;
-            slideshowImageElement.src = slideshowImages[currentImageIndex];
-            slideshowLinkElement.href = slideshowLinks[currentImageIndex];
-            slideshowTextElement.textContent = slideshowTexts[currentImageIndex];
+            const newIndex = (index + slideshowImages.length) % slideshowImages.length;
+            const tempImg = new Image();
+            tempImg.src = slideshowImages[newIndex];
+    
+            tempImg.onload = () => {
+                slideshowImageElement.src = tempImg.src;
+                slideshowLinkElement.href = slideshowLinks[newIndex];
+                slideshowTextElement.textContent = slideshowTexts[newIndex];
+                currentImageIndex = newIndex;
+            };
         }
 
         function startSlideshow() {
@@ -804,7 +816,7 @@ $(function () {
                             alt: "3 project picture"
                         },
                         {
-                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1736503727/flame_towers4_dkfpq9.webp",
+                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1738819300/01_flame_towers_ciq8ri.webp",
                             alt: "4 project picture"
                         },
                     ],
@@ -1032,7 +1044,7 @@ $(function () {
                     ],
                     images: [
                         {
-                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1736503740/mall_qatar1_ugcjpp.webp",
+                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1738819304/11_mall_qatar_obolws.webp",
                             alt: "1 project picture"
                         },
                         {
@@ -1086,10 +1098,6 @@ $(function () {
                         },
                     ],
                     images: [
-                        {
-                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1736503730/ganjlik_mall1_u9ucff.webp",
-                            alt: "1 project picture"
-                        },
                         {
                             src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1736503730/ganjlik_mall2_tbjium.webp",
                             alt: "2 project picture"
@@ -1244,7 +1252,7 @@ $(function () {
                     ],
                     images: [
                         {
-                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1736503706/amburan_mall1_l2tudk.webp",
+                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1738819312/21_amburan_mall_s5q6dm.webp",
                             alt: "1 project picture"
                         },
                         {
@@ -2063,6 +2071,14 @@ $(function () {
                         {
                             src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1737283794/MinistryOfDefenceProjects_oscyia.webp",
                             alt: "1 project picture"
+                        },
+                        {
+                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1738863434/MinistryOfDefenceProjects_2_yecfwx.webp",
+                            alt: "2 project picture"
+                        },
+                        {
+                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1738863435/MinistryOfDefenceProjects_3_xprxh2.webp",
+                            alt: "3 project picture"
                         }
                     ],
                     relatedProjects: [
@@ -2277,6 +2293,14 @@ $(function () {
                         {
                             src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1736503717/design1_ykhl1m.webp",
                             alt: "1 project picture"
+                        },
+                        {
+                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1738863372/design_2_m9gxsb.webp",
+                            alt: "2 project picture"
+                        },
+                        {
+                            src: "https://res.cloudinary.com/dlarkoumm/image/upload/v1738863370/design_3_e7tv8c.webp",
+                            alt: "3 project picture"
                         }
                     ],
                     relatedProjects: []
@@ -2323,7 +2347,7 @@ $(function () {
                 infoContainer.innerHTML += `<div>
                     <h4 class="mil-mb-30 similar-projects">SIMILAR PROJECTS</h4>
                     ${project.relatedProjects
-                        .map(rp => `<a href="?project=${rp.id}" class="mil-mb-30 mil-hashtag" data-no-swup>${rp.name}</a>`)
+                        .map(rp => `<a href="?project=${rp.id}" class="mil-mb-30 mil-hashtag">${rp.name}</a>`)
                         .join("")}
                 </div>`;
             }
