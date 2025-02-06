@@ -35,7 +35,7 @@ $(function () {
 
     function initializeDynamicElements() {
         initializePreloader();
-        // initializeAnchorScroll();
+        initializeAnchorScroll();
         initializeAppend();
         initializeAccordion();
         initializeMenu();
