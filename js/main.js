@@ -231,37 +231,37 @@ $(function () {
         console.log("Initializing slideshow...");
         initSlideshow();
     }
-
+    // поменять в индексе первую фотку
     function initSlideshow() {
         const slideshowImages = [
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312068/1flame_towers_e6fjll.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312069/2ritz_carlton_mz62m7.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312071/3port_baku_walk_oqw4tu.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312072/4port_baku_mall_rvo1ap.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312074/5rahat_gourmet_gljoim.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312075/6vasilchuki_l7sebr.png',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312077/7casa_w9e7ai.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312078/8deniz_mall_dbf0ui.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312080/9crescent_mall_y576o9.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312081/10bilgah_hotel_cbfmdz.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312083/11qatar_qvznch.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312084/12port_baku_residence_ioh3gk.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312086/13marriott_absheron_baku_rtw9o7.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312050/14ganjlik_mall_qffoi3.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312051/15mall28_pk3eya.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312051/16marriott_boulevard_biks7z.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312052/17starbucks_vmvqvg.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312054/18port_baku_jz7yqr.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312055/19azure_center_tnybfp.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312056/20ganja_mall_aewn8g.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312057/21amburan_mall_vcnjrz.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312058/22sheraton_baku_w5jch9.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312060/23athletes_village_kc1vrx.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312061/24shuvelan-park_qalwch.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312063/25dinamo_hotel_amogwq.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312064/26dosa_mall_vyrqyk.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312066/27skechers_fw5jbq.webp',
-            'https://res.cloudinary.com/dlarkoumm/image/upload/v1737312067/28Bumblbee_ghiitj.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819300/01_flame_towers_ciq8ri.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819300/02_ritz_carlton_vw9oqf.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819301/03_port_baku_walk_gzmbc1.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819301/04_port_baku_mall_wfhw4o.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819301/05_rahat_gourmet_ldncq3.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819302/06_vasilchuki_q5shyf.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819301/07_casa_fs3n2i.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819302/08_deniz_mall_hr6gaj.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819303/09_crescent_mall_vqbbhv.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819304/10_bilgah_hotel_bwy6zl.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819304/11_mall_qatar_obolws.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819305/12_port_baku_residence_ugkj3k.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819306/13_marriott_absheron_baku_c9vgtz.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819306/14_ganjlik_mall_qguslc.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819307/15_mall28_qm0glh.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819307/16_marriott_boulevard_kk8grh.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819308/17_starbucks_gyd_fp1dt4.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819309/18_port_bazar_hg6y63.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819310/19_azure_center_usxqx7.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819311/20_ganja_mall_gewoa4.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819312/21_amburan_mall_s5q6dm.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819312/22_sheraton_baku_jcvaht.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819313/23_athletes_village_bqtcyf.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819314/24_shuvelan_park_dm2ebg.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819315/25_dinamo_hotel_qht3oy.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819315/26_dosa_mall_punk96.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819316/27_skechers_yhpmav.webp',
+            'https://res.cloudinary.com/dlarkoumm/image/upload/v1738819317/28_Bumblbee_mywia0.webp',
         ];
 
         const slideshowLinks = [
@@ -475,15 +475,6 @@ $(function () {
     }
 
     function initializePortfolioSingle() {
-        // let autoSlideInterval;
-
-        // function stopAutoSlide() {
-        //     if (autoSlideInterval) {
-        //         clearInterval(autoSlideInterval);
-        //         autoSlideInterval = null;
-        //     }
-        // }
-
         function initPortfolioSingle() {
             stopAutoSlide();
             
