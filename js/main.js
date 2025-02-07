@@ -1513,7 +1513,7 @@ $(function () {
                         { id: "flame_towers", name: "Flame Towers" },
                         { id: "port_baku_walk", name: "Port Baku Walk" },
                         { id: "azure_center", name: "Azure Business Centre" },
-                        { id: "olympic_residence", name: "Olympic Residence" }
+                        { id: "athletes_village", name: "Athletes Village" }
                     ]
                 },
                 "azure_center": {
