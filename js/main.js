@@ -96,14 +96,12 @@ $(function () {
         const w = window.innerWidth;
         if (w >= 993) {
           return 28;
+        } else if (w >= 769) {
+          return 45;
+        } else {
+          return 48;
         }
-        // } else if (w >= 769) {
-        //   return 45;
-        // } else {
-        //   return 48;
-        // }
-    }
-      
+    }   
 
     // function initializeAnchorScroll() {
     //     $(document).on('click', 'a[href^="#"]', function (event) {
@@ -126,7 +124,8 @@ $(function () {
     function initializeAnchorScroll() {
         // Снимаем предыдущие обработчики, если опасаетесь дублей
         // $(document).off('click', 'a[href^="#"], a[href^="/#"]');
-      
+        $(document).off('click', 'a[href^="#"], a[href^="/#"]');
+
         $(document).on('click', 'a[href^="#"], a[href^="/#"]', function (event) {
           event.preventDefault();
       
@@ -159,8 +158,6 @@ $(function () {
         });
     }
       
-      
-
     function initializeAppend() {
         $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-current-page a").remove();
         $(".mil-arrow").clone().appendTo(".mil-arrow-place");
@@ -170,14 +167,40 @@ $(function () {
     }
 
     function initializeAccordion() {
+        // let groups = gsap.utils.toArray(".mil-accordion-group");
+        // let menus = gsap.utils.toArray(".mil-accordion-menu");
+        // let menuToggles = groups.map(createAnimation);
+
+        // menus.forEach((menu) => {
+        //     menu.addEventListener("click", () => toggleMenu(menu));
+        // });
+
+        // function toggleMenu(clickedMenu) {
+        //     menuToggles.forEach((toggleFn) => toggleFn(clickedMenu));
+        // }
         let groups = gsap.utils.toArray(".mil-accordion-group");
         let menus = gsap.utils.toArray(".mil-accordion-menu");
-        let menuToggles = groups.map(createAnimation);
 
+        // 1) Снимаем прежние "click"
         menus.forEach((menu) => {
-            menu.addEventListener("click", () => toggleMenu(menu));
+            // Снимаем, если уже есть такой обработчик
+            menu.removeEventListener("click", handleMenuClick);
         });
 
+        // 2) Создаём массив функций-анимаций
+        let menuToggles = groups.map(createAnimation);
+
+        // Определяем функцию, которая будет вызываться при клике:
+        function handleMenuClick(e) {
+            toggleMenu(e.currentTarget);
+        }
+
+        // 3) Вешаем новый обработчик
+        menus.forEach((menu) => {
+            menu.addEventListener("click", handleMenuClick);
+        });
+
+        // Эта функция дёргает все анимации
         function toggleMenu(clickedMenu) {
             menuToggles.forEach((toggleFn) => toggleFn(clickedMenu));
         }
@@ -2513,6 +2536,9 @@ $(function () {
                 moveSlide('next');
             }, 3000);
         }
+        // Сначала снимаем слушатели, если уже были
+        document.removeEventListener('swup:willReplaceContent', stopAutoSlide);
+        document.removeEventListener('swup:contentReplaced', initPortfolioSingle);
 
         document.addEventListener('swup:willReplaceContent', stopAutoSlide);
         document.addEventListener('swup:contentReplaced', initPortfolioSingle);
