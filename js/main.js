@@ -19,13 +19,15 @@ $(function () {
     ***************************/
     const options = {
         containers: ['#swupMain', '#swupMenu'],
-        animateHistoryBrowsing: true,
-        linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
+        animateHistoryBrowsing: false,
+        // linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
+        linkSelector: 'a:not([data-no-swup]):not([href*="#"])',
         animationSelector: '[class*="mil-main-transition"]',
         hooks: {
             'page:view': () => {
                 // console.log('Контент обновлён. Выполняем повторную инициализацию...');
                 initializeDynamicElements();
+                scrollToHashIfExists(); 
             },
         }
     };
@@ -70,23 +72,94 @@ $(function () {
         }, "-=1");
     }
 
+    function scrollToHashIfExists() {
+        const hash = window.location.hash; // например "#services"
+        if (!hash) return; // нет хэша — ничего не делаем
+      
+        // Ищем элемент на странице
+        const target = document.querySelector(hash);
+        if (!target) return; // элемента с таким id нет — выходим
+      
+        // Считаем отступ в зависимости от ширины экрана
+        const offset = getScrollOffset();
+        // Позиция элемента
+        const elementY = target.getBoundingClientRect().top + window.scrollY - offset;
+      
+        // Можно «мгновенно» проскроллить:
+        window.scrollTo({ top: elementY, behavior: 'auto' });
+      
+        // Если хотите плавно: behavior: 'smooth', но иногда при первой
+        // загрузке это приводит к «рывкам», поэтому часто делают 'auto'.
+    }
+    
+    function getScrollOffset() {
+        const w = window.innerWidth;
+        if (w >= 993) {
+          return 28;
+        }
+        // } else if (w >= 769) {
+        //   return 45;
+        // } else {
+        //   return 48;
+        // }
+    }
+      
+
+    // function initializeAnchorScroll() {
+    //     $(document).on('click', 'a[href^="#"]', function (event) {
+    //         event.preventDefault();
+
+    //         const href = $(this).attr('href');
+    //         if (href === '#') return;
+
+    //         const target = $(href);
+    //         if (target.length) {
+    //             const offset = $(window).width() < 1200 ? 90 : 0;
+    //             $('html, body').animate({ scrollTop: target.offset().top - offset }, 400);
+    //         } else {
+    //             const targetUrl = href.startsWith('/') ? href : `/${href}`;
+    //             swup.navigate(targetUrl);
+    //         }
+    //     });
+    // }
+
     function initializeAnchorScroll() {
-        $(document).on('click', 'a[href^="#"]', function (event) {
-            event.preventDefault();
-
-            const href = $(this).attr('href');
-            if (href === '#') return;
-
-            const target = $(href);
-            if (target.length) {
-                const offset = $(window).width() < 1200 ? 90 : 0;
-                $('html, body').animate({ scrollTop: target.offset().top - offset }, 400);
-            } else {
-                const targetUrl = href.startsWith('/') ? href : `/${href}`;
-                swup.navigate(targetUrl);
-            }
+        // Снимаем предыдущие обработчики, если опасаетесь дублей
+        // $(document).off('click', 'a[href^="#"], a[href^="/#"]');
+      
+        $(document).on('click', 'a[href^="#"], a[href^="/#"]', function (event) {
+          event.preventDefault();
+      
+          let href = $(this).attr('href'); // может быть "#services" или "/#services"
+          if (href === '#') return; // если просто "#", игнорируем
+      
+          // Уберём ведущий слеш, если он есть
+          // "/#services" -> "#services"
+          href = href.replace(/^\/#/, '#');
+      
+          const $target = $(href);
+          if ($target.length) {
+            // Находим отступ
+            const offset = getScrollOffset();
+            // Плавная анимация к элементу
+            $('html, body').animate(
+              { scrollTop: $target.offset().top - offset },
+              400,
+              () => {
+                // По окончании анимации ставим хэш в адресную строку
+                history.pushState(null, '', href);
+              }
+            );
+          } else {
+            // Элемента нет - значит, это якорь другой страницы
+            // или раздела, которого тут нет, — отправим в swup
+            const targetUrl = href.startsWith('/') ? href : `/${href}`;
+            swup.navigate(targetUrl);
+          }
         });
     }
+      
+      
 
     function initializeAppend() {
         $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-current-page a").remove();
