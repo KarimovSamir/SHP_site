@@ -55,7 +55,9 @@ var observer;
 var refreshSize;
 var deltaBuffer = [];
 var deltaBufferTimer;
-var isMac = /^Mac/.test(navigator.platform);
+// var isMac = /^Mac/.test(navigator.platform);
+var isMac = /Macintosh|Mac\sOS\sX/i.test(navigator.userAgent);
+// var isMac = navigator.userAgent.toLowerCase().includes("mac");
 
 var key = { left: 37, up: 38, right: 39, down: 40, spacebar: 32,
             pageup: 33, pagedown: 34, end: 35, home: 36 };
@@ -378,7 +380,7 @@ function wheel(event) {
 
     scrollArray(overflowing, deltaX, deltaY);
     // event.preventDefault();
-    const isMac = navigator.userAgent.includes('Mac');
+    // const isMac = navigator.userAgent.includes('Mac');
 
     if (!isMac) {
         event.preventDefault();
