@@ -59,6 +59,7 @@ var deltaBufferTimer;
 var isMac = /Macintosh|Mac\sOS\sX/i.test(navigator.userAgent);
 // var isMac = navigator.userAgent.toLowerCase().includes("mac");
 
+
 var key = { left: 37, up: 38, right: 39, down: 40, spacebar: 32,
             pageup: 33, pagedown: 34, end: 35, home: 36 };
 var arrowKeys = { 37: 1, 38: 1, 39: 1, 40: 1 };

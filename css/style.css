@@ -5856,6 +5856,79 @@ portfolio same projects
   }
 }
 
+/* -------------------------------------------
+
+Описание под фото
+
+------------------------------------------- */
+
+.team-hover-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+/* .team-hover-container img {
+  display: block;
+  width: 100%;
+} */
+
+.team-hover-info {
+  position: absolute;
+  bottom: 10px; /* Поднятие полосы выше */
+  left: 0;
+  width: 93%;
+  min-height: 30px; /* Минимальная высота полосы */
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  border-bottom-left-radius: 10px; /* Закругление слева */
+  border-bottom-right-radius: 10px; /* Закругление справа */
+  padding: 5px 10px; /* Отступы для контента */
+  /* transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out; */
+  transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease-in-out;
+  max-height: 0; /* Начальная высота */
+  overflow: hidden;
+}
+
+.team-hover-info span {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+.team-hover-container:hover .team-hover-info {
+  max-height: 100px; /* Достаточно большое значение для контента */
+  opacity: 1;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+  .team-hover-info {
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+  .team-hover-container:hover .team-hover-info {
+    max-height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .team-hover-info {
+    font-size: 10px;
+    padding: 2px 5px;
+  }
+  .team-hover-container:hover .team-hover-info {
+    max-height: 150px;
+  }
+}
 
 /* -------------------------------------------
 
