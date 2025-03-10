@@ -21,7 +21,7 @@ $(function () {
         containers: ['#swupMain', '#swupMenu'],
         animateHistoryBrowsing: false,
         // linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
-        linkSelector: 'a:not([data-no-swup])',
+        linkSelector: 'a:not([data-no-swup]):not([href*="#"])',
         animationSelector: '[class*="mil-main-transition"]',
         hooks: {
             'page:view': () => {
@@ -104,61 +104,54 @@ $(function () {
     }   
 
     function initializeAnchorScroll() {
-        // Снимаем предыдущие обработчики для всех ссылок с якорями
-        $(document).off('click', 'a[href*="#"]');
-        $(document).on('click', 'a[href*="#"]', function(event) {
-            event.preventDefault();
-            let href = $(this).attr('href');
+        // Определяем, что мы на странице азербайджанской версии
+        const isAzPage = window.location.pathname.startsWith('/az');
     
-            // Определяем, на какую «домашнюю» страницу хотим перейти:
-            // Если ссылка начинается с '/az', значит, явно нужен азербайджанский вариант,
-            // иначе, если мы уже на странице, где pathname начинается с '/az', то тоже.
-            let homepage;
-            if (href.indexOf('/az') === 0) {
-                homepage = '/az';
-            } else if (window.location.pathname.startsWith('/az')) {
-                homepage = '/az';
-            } else {
-                homepage = '/';
-            }
+        // Убираем предыдущие обработчики, чтобы избежать дублирования
+        $(document).off('click', 'a[href^="#"], a[href^="/#"], a[href^="/az#"]');
+    
+        $(document).on('click', 'a[href^="#"], a[href^="/#"], a[href^="/az#"]', function (event) {
+            event.preventDefault();
             
-            console.log('href: ' + href)
-            console.log('homepage: ' +homepage)
-            // Если ссылка выглядит как "/#anchor", приводим её к "#anchor"
+            let href = $(this).attr('href'); // может быть "#team", "/#team" или "/az#team"
+            if (href === '#') return; // если просто "#", ничего не делаем
+            
+            // Если ссылка начинается с "/#", заменяем её на "#"
             if (href.startsWith('/#')) {
                 href = href.replace(/^\/#/, '#');
             }
-    
+            
+            // Если мы на странице az и ссылка задана только как якорь, дополняем префиксом "/az"
+            if (isAzPage && href.startsWith('#')) {
+                href = '/az' + href;
+            }
+            
             // Разбиваем ссылку на путь и якорь
             const parts = href.split('#');
-            // pathPart может быть пустым или содержать, например, "/az"
-            let pathPart = parts[0];
-            let anchorPart = parts[1] ? '#' + parts[1] : '';
-            console.log('pathPart: ' + pathPart)
-            console.log('anchorPart: ' + anchorPart)
-            // Если путь не указан, считаем, что нужно перейти на homepage
-            const destinationPath = pathPart ? pathPart : homepage;
-            console.log('destinationPath: ' + destinationPath)
-            // Если мы уже на целевой странице, просто плавно скроллим до нужного элемента
-            if (window.location.pathname === destinationPath) {
+            // Если путь не задан, берем текущий pathname
+            let pathPart = parts[0] ? parts[0] : window.location.pathname;
+            const anchorPart = parts[1] ? '#' + parts[1] : '';
+            
+            // Если уже на нужной странице — просто скроллим
+            if (window.location.pathname === pathPart) {
                 const $target = $(anchorPart);
-                console.log('target: ' + target)
                 if ($target.length) {
                     const offset = getScrollOffset();
                     $('html, body').animate(
                         { scrollTop: $target.offset().top - offset },
                         400,
                         () => {
-                            history.pushState(null, '', destinationPath + anchorPart);
+                            history.pushState(null, '', pathPart + anchorPart);
                         }
                     );
                 }
             } else {
-                // Если мы не на целевой странице – переходим через swup
-                swup.navigate(destinationPath + anchorPart);
+                // Если не на целевой странице — переходим через swup
+                swup.navigate(pathPart + anchorPart);
             }
         });
-    }    
+    }
+      
   
     function initializeAppend() {
         $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-current-page a").remove();
