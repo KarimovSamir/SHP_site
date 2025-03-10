@@ -104,23 +104,29 @@ $(function () {
     }   
 
     function initializeAnchorScroll() {
-        // Убираем предыдущие обработчики для ссылок, начинающихся с "#", "/#" и "/az#"
+        // Снимаем старые обработчики
         $(document).off('click', 'a[href^="#"], a[href^="/#"], a[href^="/az#"]');
     
         $(document).on('click', 'a[href^="#"], a[href^="/#"], a[href^="/az#"]', function (event) {
             event.preventDefault();
             let href = $(this).attr('href');
     
-            // Если ссылка начинается с "/#", заменяем её на чистый "#"
+            // Если ссылка начинается с '/#', превращаем в '#'
             if (href.indexOf('/#') === 0) {
                 href = href.replace(/^\/#/, '#');
             }
             
-            // Если ссылка начинается с "/az#", это ссылка на главную страницу азербайджанской версии
+            // Если мы не на главной странице (/az) и ссылка не содержит явно '/az#',
+            // то значит она предназначалась для главной, поэтому добавляем префикс.
+            if (window.location.pathname !== '/az' && href.indexOf('/az#') !== 0) {
+                href = '/az' + href;
+            }
+            
+            // Если ссылка начинается с '/az#', обрабатываем её отдельно:
             if (href.indexOf('/az#') === 0) {
-                const anchor = href.substring(3); // убираем "/az", получаем, например, "#about"
+                const anchor = href.substring(3); // получаем, например, "#services"
                 if (window.location.pathname === '/az') {
-                    // Если уже на главной странице, скроллим до якоря
+                    // Если уже на главной, скроллим до элемента
                     const $target = $(anchor);
                     if ($target.length) {
                         const offset = getScrollOffset();
@@ -129,26 +135,27 @@ $(function () {
                         });
                     }
                 } else {
-                    // Если не на главной, то переходим через swup
+                    // Если не на главной, переходим через swup
                     swup.navigate('/az' + anchor);
                 }
-                return; // дальше не обрабатываем
-            }
-            
-            // Обработка чистых якорных ссылок вида "#about"
-            if (href.indexOf('#') === 0) {
-                const targetPath = window.location.pathname;
-                const $target = $(href);
-                if ($target.length) {
-                    const offset = getScrollOffset();
-                    $('html, body').animate({ scrollTop: $target.offset().top - offset }, 400, () => {
-                        history.pushState(null, '', targetPath + href);
-                    });
+            } else if (href.indexOf('#') === 0) {
+                // Если ссылка выглядит как чистый якорь, но мы уже на главной — просто скроллим
+                if (window.location.pathname === '/az') {
+                    const $target = $(href);
+                    if ($target.length) {
+                        const offset = getScrollOffset();
+                        $('html, body').animate({ scrollTop: $target.offset().top - offset }, 400, () => {
+                            history.pushState(null, '', '/az' + href);
+                        });
+                    }
+                } else {
+                    // Если не на главной, переходим на главную с якорем
+                    swup.navigate('/az' + href);
                 }
             }
         });
-    }    
-    
+    }
+       
     function initializeAppend() {
         $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-current-page a").remove();
         $(".mil-arrow").clone().appendTo(".mil-arrow-place");
