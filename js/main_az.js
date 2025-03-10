@@ -21,7 +21,7 @@ $(function () {
         containers: ['#swupMain', '#swupMenu'],
         animateHistoryBrowsing: false,
         // linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
-        linkSelector: 'a:not([data-no-swup]):not([href*="#"])',
+        linkSelector: 'a:not([data-no-swup]):not([href*="/az#"])',
         animationSelector: '[class*="mil-main-transition"]',
         hooks: {
             'page:view': () => {
@@ -166,9 +166,11 @@ $(function () {
           } else {
             // Элемента нет - значит, это якорь другой страницы
             // или раздела, которого тут нет, — отправим в swup
-            const targetUrl = href.startsWith('/') ? href : `/${href}`;
-            swup.navigate(targetUrl);
-          }
+            const targetUrl = window.location.pathname.startsWith('/az')
+                ? (href.startsWith('/az') ? href : `/az${href}`)
+                : (href.startsWith('/') ? href : `/${href}`);
+                swup.navigate(targetUrl);
+            }
         });
     }
   
