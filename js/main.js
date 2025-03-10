@@ -103,24 +103,6 @@ $(function () {
         }
     }   
 
-    // function initializeAnchorScroll() {
-    //     $(document).on('click', 'a[href^="#"]', function (event) {
-    //         event.preventDefault();
-
-    //         const href = $(this).attr('href');
-    //         if (href === '#') return;
-
-    //         const target = $(href);
-    //         if (target.length) {
-    //             const offset = $(window).width() < 1200 ? 90 : 0;
-    //             $('html, body').animate({ scrollTop: target.offset().top - offset }, 400);
-    //         } else {
-    //             const targetUrl = href.startsWith('/') ? href : `/${href}`;
-    //             swup.navigate(targetUrl);
-    //         }
-    //     });
-    // }
-
     function initializeAnchorScroll() {
         // Снимаем предыдущие обработчики, если опасаетесь дублей
         // $(document).off('click', 'a[href^="#"], a[href^="/#"]');
