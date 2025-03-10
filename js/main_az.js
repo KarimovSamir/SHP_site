@@ -110,31 +110,58 @@ $(function () {
 
         $(document).on('click', 'a[href*="#"]', function (event) {
             event.preventDefault();
-            const href = $(this).attr('href');
-            // Разбиваем URL на путь и якорь
-            const parts = href.split('#');
-            const pathPart = parts[0]; // может быть пустым, "/" или "/az"
-            const hashPart = parts[1] ? '#' + parts[1] : '';
+            let href = $(this).attr('href');
             
-            // Если путь отсутствует или совпадает с текущим, значит, якорь внутри текущей страницы
-            if (!pathPart || window.location.pathname === pathPart) {
-              const $target = $(hashPart);
-              if ($target.length) {
-                const offset = getScrollOffset();
-                $('html, body').animate(
-                  { scrollTop: $target.offset().top - offset },
-                  400,
-                  () => {
-                    // Обновляем адресную строку, сохраняя текущий путь
-                    history.pushState(null, '', window.location.pathname + hashPart);
-                  }
-                );
+            // Определяем домашнюю страницу в зависимости от языка
+            const homepage = window.location.pathname.startsWith('/az') ? '/az' : '/';
+            
+            // Если ссылка начинается с '#' (относительный якорь)
+            if (href.startsWith('#')) {
+              if (window.location.pathname === homepage) {
+                // Если мы на домашней странице – плавно скроллим
+                const $target = $(href);
+                if ($target.length) {
+                  const offset = getScrollOffset();
+                  $('html, body').animate(
+                    { scrollTop: $target.offset().top - offset },
+                    400,
+                    () => {
+                      history.pushState(null, '', homepage + href);
+                    }
+                  );
+                }
+              } else {
+                // Если не на домашней странице – переходим на homepage + якорь
+                swup.navigate(homepage + href);
               }
             } else {
-              // Если путь не совпадает – переходим на другую страницу через swup
-              swup.navigate(href);
+              // Если ссылка содержит путь, например, "/az#about" или "/#team"
+              const parts = href.split('#');
+              const pathPart = parts[0]; // например, "/az" или "/"
+              const hash = parts[1] ? '#' + parts[1] : '';
+              
+              if (window.location.pathname === pathPart) {
+                // Если уже на нужном пути – пробуем плавный скролл
+                const $target = $(hash);
+                if ($target.length) {
+                  const offset = getScrollOffset();
+                  $('html, body').animate(
+                    { scrollTop: $target.offset().top - offset },
+                    400,
+                    () => {
+                      history.pushState(null, '', window.location.pathname + hash);
+                    }
+                  );
+                } else {
+                  // Если элемента нет, лучше все-таки перейти на нужную страницу
+                  swup.navigate(pathPart + hash);
+                }
+              } else {
+                // Если путь не совпадает – просто переходим через swup
+                swup.navigate(href);
+              }
             }
-        });          
+        });                  
     }
   
     function initializeAppend() {
