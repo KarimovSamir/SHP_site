@@ -48,6 +48,7 @@ $(function () {
         initializeScripts();
         initializePortfolioSingle();
         initializeTabs();
+        initializeContactForm();
     }
 
     function initializePreloader() {
@@ -2526,6 +2527,34 @@ $(function () {
         document.addEventListener('swup:contentReplaced', initPortfolioSingle);
 
         initPortfolioSingle();
+    }
+
+    function initializeContactForm() {
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async function (event) {
+                event.preventDefault(); // отменяем стандартную отправку формы
+    
+                const formData = new FormData(contactForm);
+    
+                try {
+                    const response = await fetch(contactForm.action, {
+                        method: contactForm.method,
+                        body: formData
+                    });
+                    const result = await response.json();
+    
+                    // Показываем уведомление пользователю
+                    alert(result.message);
+    
+                    // Очищаем форму
+                    contactForm.reset();
+                } catch (error) {
+                    console.error('Ошибка при отправке:', error);
+                    alert('Произошла ошибка при отправке сообщения.');
+                }
+            });
+        }
     }
 
     // Инициализация при загрузке страницы

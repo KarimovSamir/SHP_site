@@ -1041,11 +1041,11 @@ form
 input,
 textarea {
   position: relative;
-  height: 70px;
+  height: 50px;
   padding: 0 30px;
   width: 100%;
   font-size: 12px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 2px;
   font-weight: 500;
   /* font-family: "Outfit", sans-serif; */
@@ -1097,7 +1097,7 @@ textarea::placeholder {
 
 textarea {
   padding: 15px 30px;
-  height: 300px;
+  height: 140px;
 }
 
 /* -------------------------------------------
@@ -2619,6 +2619,50 @@ dodecahedron
   }
 }
 .mil-position-4.mil-dark .mil-pentagon div {
+  border-top: 0.1px solid rgb(0, 0, 0);
+}
+
+.mil-position-5 {
+  top: 230px;
+  right: 103%;
+}
+.mil-position-5 .mil-pentagon div {
+  border-top: 0.1px solid rgb(255, 255, 255);
+}
+.mil-position-5 .mil-dodecahedron {
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+
+@media screen and (max-width: 800px) {
+  .mil-position-5 {
+    /* display: none; */
+  }
+}
+
+.mil-position-5.mil-dark .mil-pentagon div {
+  border-top: 0.1px solid rgb(0, 0, 0);
+}
+
+.mil-position-6 {
+  top: 34px;
+  right: 27%;
+}
+.mil-position-6 .mil-pentagon div {
+  border-top: 0.1px solid rgb(255, 255, 255);
+}
+.mil-position-6 .mil-dodecahedron {
+  -webkit-animation-delay: 0.5s;
+          animation-delay: 0.5s;
+}
+
+@media screen and (max-width: 800px) {
+  .mil-position-6 {
+    /* display: none; */
+  }
+}
+
+.mil-position-6.mil-dark .mil-pentagon div {
   border-top: 0.1px solid rgb(0, 0, 0);
 }
 
@@ -6120,4 +6164,76 @@ portfolio same projects
   display: inline-block;
   width: 10px;               /* Фиксированная ширина для стабильности */
   text-align: center;        /* Центрируем точку по горизонтали */
+}
+
+
+
+/* Общий фон для секции формы */
+#blog-contact-form {
+  padding: 30px 20px;
+  background-color: #f5f5f5; /* Светлый фон, чтобы форма выделялась среди большого количества текста */
+}
+
+/* Оформление контейнера формы (окно/рамка) */
+#blog-contact-form .container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Стилизация заголовка формы */
+#blog-contact-form h3 {
+  font-size: 2rem;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+}
+
+/* Стили для полей ввода и textarea */
+#blog-contact-form input[type="text"],
+#blog-contact-form input[type="email"],
+#blog-contact-form textarea,
+#blog-contact-form input[type="file"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fafafa;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Эффект фокуса для полей */
+#blog-contact-form input[type="text"]:focus,
+#blog-contact-form input[type="email"]:focus,
+#blog-contact-form textarea:focus,
+#blog-contact-form input[type="file"]:focus {
+  /* border-color: #007BFF; */
+  /* box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); */
+  outline: none;
+}
+
+/* Кнопка отправки */
+#blog-contact-form button.mil-button {
+  /* background-color: #007BFF; */
+  color: #000000;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 70px;
+}
+
+/* Дополнительная стилизация текста предупреждения */
+#blog-contact-form p {
+  font-size: 0.9rem;
+  color: #666;
 }
