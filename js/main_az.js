@@ -104,65 +104,61 @@ $(function () {
     }   
 
     function initializeAnchorScroll() {
-        // Снимаем предыдущие обработчики, если опасаетесь дублей
-        // $(document).off('click', 'a[href^="#"], a[href^="/#"]');
-        $(document).off('click', 'a[href^="#"], a[href^="/#"]');
-
-        $(document).on('click', 'a[href*="#"]', function (event) {
+        // Снимаем предыдущие обработчики для всех ссылок с якорями
+        $(document).off('click', 'a[href*="#"]');
+        $(document).on('click', 'a[href*="#"]', function(event) {
             event.preventDefault();
             let href = $(this).attr('href');
-            
-            // Определяем домашнюю страницу в зависимости от языка
-            const homepage = window.location.pathname.startsWith('/az') ? '/az' : '/';
-            
-            // Если ссылка начинается с '#' (относительный якорь)
-            if (href.startsWith('#')) {
-              if (window.location.pathname === homepage) {
-                // Если мы на домашней странице – плавно скроллим
-                const $target = $(href);
-                if ($target.length) {
-                  const offset = getScrollOffset();
-                  $('html, body').animate(
-                    { scrollTop: $target.offset().top - offset },
-                    400,
-                    () => {
-                      history.pushState(null, '', homepage + href);
-                    }
-                  );
-                }
-              } else {
-                // Если не на домашней странице – переходим на homepage + якорь
-                swup.navigate(homepage + href);
-              }
+    
+            // Определяем, на какую «домашнюю» страницу хотим перейти:
+            // Если ссылка начинается с '/az', значит, явно нужен азербайджанский вариант,
+            // иначе, если мы уже на странице, где pathname начинается с '/az', то тоже.
+            let homepage;
+            if (href.indexOf('/az') === 0) {
+                homepage = '/az';
+            } else if (window.location.pathname.startsWith('/az')) {
+                homepage = '/az';
             } else {
-              // Если ссылка содержит путь, например, "/az#about" или "/#team"
-              const parts = href.split('#');
-              const pathPart = parts[0]; // например, "/az" или "/"
-              const hash = parts[1] ? '#' + parts[1] : '';
-              
-              if (window.location.pathname === pathPart) {
-                // Если уже на нужном пути – пробуем плавный скролл
-                const $target = $(hash);
-                if ($target.length) {
-                  const offset = getScrollOffset();
-                  $('html, body').animate(
-                    { scrollTop: $target.offset().top - offset },
-                    400,
-                    () => {
-                      history.pushState(null, '', window.location.pathname + hash);
-                    }
-                  );
-                } else {
-                  // Если элемента нет, лучше все-таки перейти на нужную страницу
-                  swup.navigate(pathPart + hash);
-                }
-              } else {
-                // Если путь не совпадает – просто переходим через swup
-                swup.navigate(href);
-              }
+                homepage = '/';
             }
-        });                  
-    }
+            
+            console.log('href: ' + href)
+            console.log('homepage: ' +homepage)
+            // Если ссылка выглядит как "/#anchor", приводим её к "#anchor"
+            if (href.startsWith('/#')) {
+                href = href.replace(/^\/#/, '#');
+            }
+    
+            // Разбиваем ссылку на путь и якорь
+            const parts = href.split('#');
+            // pathPart может быть пустым или содержать, например, "/az"
+            let pathPart = parts[0];
+            let anchorPart = parts[1] ? '#' + parts[1] : '';
+            console.log('pathPart: ' + pathPart)
+            console.log('anchorPart: ' + anchorPart)
+            // Если путь не указан, считаем, что нужно перейти на homepage
+            const destinationPath = pathPart ? pathPart : homepage;
+            console.log('destinationPath: ' + destinationPath)
+            // Если мы уже на целевой странице, просто плавно скроллим до нужного элемента
+            if (window.location.pathname === destinationPath) {
+                const $target = $(anchorPart);
+                console.log('target: ' + target)
+                if ($target.length) {
+                    const offset = getScrollOffset();
+                    $('html, body').animate(
+                        { scrollTop: $target.offset().top - offset },
+                        400,
+                        () => {
+                            history.pushState(null, '', destinationPath + anchorPart);
+                        }
+                    );
+                }
+            } else {
+                // Если мы не на целевой странице – переходим через swup
+                swup.navigate(destinationPath + anchorPart);
+            }
+        });
+    }    
   
     function initializeAppend() {
         $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-current-page a").remove();
