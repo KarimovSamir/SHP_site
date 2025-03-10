@@ -21,7 +21,7 @@ $(function () {
         containers: ['#swupMain', '#swupMenu'],
         animateHistoryBrowsing: false,
         // linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
-        linkSelector: 'a:not([data-no-swup]):not([href*="/az#"])',
+        linkSelector: 'a:not([data-no-swup])',
         animationSelector: '[class*="mil-main-transition"]',
         hooks: {
             'page:view': () => {
@@ -108,70 +108,33 @@ $(function () {
         // $(document).off('click', 'a[href^="#"], a[href^="/#"]');
         $(document).off('click', 'a[href^="#"], a[href^="/#"]');
 
-        // $(document).on('click', 'a[href^="#"], a[href^="/#"]', function (event) {
-        $(document).on('click', 'a[href^="#"], a[href^="/#"], a[href*=".html#"]', function (event) {
-          event.preventDefault();
-      
-          let href = $(this).attr('href'); // может быть "#services" или "/#services"
-          if (href === '#') return; // если просто "#", игнорируем
-
-        //   if (/\.html#/.test(href)) {
-            if (
-                href.includes('#') &&
-                !href.startsWith('#') && 
-                !href.startsWith('/#')
-                ) {
-            const [pagePart, anchorPart] = href.split('#'); // [ 'az.html', 'team' ]
-        
-            // Попробуем найти элемент с id="team"
-            const $target = $('#' + anchorPart);
-            if ($target.length) {
-              // Нашли элемент на этой же странице
-              const offset = getScrollOffset();
-              $('html, body').animate(
-                { scrollTop: $target.offset().top - offset },
-                400,
-                () => {
-                  // Обновим адресную строку только якорем
-                  // т.е. #team (или хотите вернуть 'az.html#team')
-                  history.pushState(null, '', '#' + anchorPart);
-                }
-              );
+        $(document).on('click', 'a[href*="#"]', function (event) {
+            event.preventDefault();
+            const href = $(this).attr('href');
+            // Разбиваем URL на путь и якорь
+            const parts = href.split('#');
+            const pathPart = parts[0]; // может быть пустым, "/" или "/az"
+            const hashPart = parts[1] ? '#' + parts[1] : '';
+            
+            // Если путь отсутствует или совпадает с текущим, значит, якорь внутри текущей страницы
+            if (!pathPart || window.location.pathname === pathPart) {
+              const $target = $(hashPart);
+              if ($target.length) {
+                const offset = getScrollOffset();
+                $('html, body').animate(
+                  { scrollTop: $target.offset().top - offset },
+                  400,
+                  () => {
+                    // Обновляем адресную строку, сохраняя текущий путь
+                    history.pushState(null, '', window.location.pathname + hashPart);
+                  }
+                );
+              }
             } else {
-              // Элемента нет — значит, это другой раздел/другая страница
-              // вызываем swup, чтобы перейти
+              // Если путь не совпадает – переходим на другую страницу через swup
               swup.navigate(href);
             }
-        
-            return; // Выходим, чтобы не шли дальше по общему коду
-          }
-      
-          // Уберём ведущий слеш, если он есть
-          // "/#services" -> "#services"
-          href = href.replace(/^\/#/, '#');
-      
-          const $target = $(href);
-          if ($target.length) {
-            // Находим отступ
-            const offset = getScrollOffset();
-            // Плавная анимация к элементу
-            $('html, body').animate(
-              { scrollTop: $target.offset().top - offset },
-              400,
-              () => {
-                // По окончании анимации ставим хэш в адресную строку
-                history.pushState(null, '', href);
-              }
-            );
-          } else {
-            // Элемента нет - значит, это якорь другой страницы
-            // или раздела, которого тут нет, — отправим в swup
-            const targetUrl = window.location.pathname.startsWith('/az')
-                ? (href.startsWith('/az') ? href : `/az${href}`)
-                : (href.startsWith('/') ? href : `/${href}`);
-                swup.navigate(targetUrl);
-            }
-        });
+        });          
     }
   
     function initializeAppend() {
