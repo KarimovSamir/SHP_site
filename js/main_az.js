@@ -104,55 +104,51 @@ $(function () {
     }   
 
     function initializeAnchorScroll() {
-        // Определяем, что мы на странице азербайджанской версии
-        const isAzPage = window.location.pathname.startsWith('/az');
-    
-        // Убираем предыдущие обработчики, чтобы избежать дублирования
+        // Убираем предыдущие обработчики для ссылок, начинающихся с "#", "/#" и "/az#"
         $(document).off('click', 'a[href^="#"], a[href^="/#"], a[href^="/az#"]');
     
         $(document).on('click', 'a[href^="#"], a[href^="/#"], a[href^="/az#"]', function (event) {
             event.preventDefault();
-            
-            let href = $(this).attr('href'); // может быть "#team", "/#team" или "/az#team"
-            if (href === '#') return; // если просто "#", ничего не делаем
-            
-            // Если ссылка начинается с "/#", заменяем её на "#"
-            if (href.startsWith('/#')) {
+            let href = $(this).attr('href');
+    
+            // Если ссылка начинается с "/#", заменяем её на чистый "#"
+            if (href.indexOf('/#') === 0) {
                 href = href.replace(/^\/#/, '#');
             }
             
-            // Если мы на странице az и ссылка задана только как якорь, дополняем префиксом "/az"
-            if (isAzPage && href.startsWith('#')) {
-                href = '/az' + href;
+            // Если ссылка начинается с "/az#", это ссылка на главную страницу азербайджанской версии
+            if (href.indexOf('/az#') === 0) {
+                const anchor = href.substring(3); // убираем "/az", получаем, например, "#about"
+                if (window.location.pathname === '/az') {
+                    // Если уже на главной странице, скроллим до якоря
+                    const $target = $(anchor);
+                    if ($target.length) {
+                        const offset = getScrollOffset();
+                        $('html, body').animate({ scrollTop: $target.offset().top - offset }, 400, () => {
+                            history.pushState(null, '', '/az' + anchor);
+                        });
+                    }
+                } else {
+                    // Если не на главной, то переходим через swup
+                    swup.navigate('/az' + anchor);
+                }
+                return; // дальше не обрабатываем
             }
             
-            // Разбиваем ссылку на путь и якорь
-            const parts = href.split('#');
-            // Если путь не задан, берем текущий pathname
-            let pathPart = parts[0] ? parts[0] : window.location.pathname;
-            const anchorPart = parts[1] ? '#' + parts[1] : '';
-            
-            // Если уже на нужной странице — просто скроллим
-            if (window.location.pathname === pathPart) {
-                const $target = $(anchorPart);
+            // Обработка чистых якорных ссылок вида "#about"
+            if (href.indexOf('#') === 0) {
+                const targetPath = window.location.pathname;
+                const $target = $(href);
                 if ($target.length) {
                     const offset = getScrollOffset();
-                    $('html, body').animate(
-                        { scrollTop: $target.offset().top - offset },
-                        400,
-                        () => {
-                            history.pushState(null, '', pathPart + anchorPart);
-                        }
-                    );
+                    $('html, body').animate({ scrollTop: $target.offset().top - offset }, 400, () => {
+                        history.pushState(null, '', targetPath + href);
+                    });
                 }
-            } else {
-                // Если не на целевой странице — переходим через swup
-                swup.navigate(pathPart + anchorPart);
             }
         });
-    }
-      
-  
+    }    
+    
     function initializeAppend() {
         $(".mil-arrow-place .mil-arrow, .mil-animation .mil-dodecahedron, .mil-current-page a").remove();
         $(".mil-arrow").clone().appendTo(".mil-arrow-place");
