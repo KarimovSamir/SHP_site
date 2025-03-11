@@ -18,7 +18,7 @@ $(function () {
 
     ***************************/
     const options = {
-        containers: ['#swupMain', '#swupMenu'],
+        containers: ['#swupMain', '#swupMenuMobile', 'swupMenuFrameMobile', 'swupMenuDesktop'],
         animateHistoryBrowsing: false,
         // linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
         linkSelector: 'a:not([data-no-swup]):not([href*="#"])',
