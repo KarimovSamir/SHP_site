@@ -104,71 +104,55 @@ $(function () {
     }   
 
     function initializeAnchorScroll() {
-        // Снимаем предыдущие обработчики, если опасаетесь дублей
-        // $(document).off('click', 'a[href^="#"], a[href^="/#"]');
-        $(document).off('click', 'a[href^="#"], a[href^="/#"]');
-
-        // $(document).on('click', 'a[href^="#"], a[href^="/#"]', function (event) {
-        $(document).on('click', 'a[href^="#"], a[href^="/#"], a[href*=".html#"]', function (event) {
-          event.preventDefault();
-      
-          let href = $(this).attr('href'); // может быть "#services" или "/#services"
-          if (href === '#') return; // если просто "#", игнорируем
-
-        //   if (/\.html#/.test(href)) {
-            if (
-                href.includes('#') &&
-                !href.startsWith('#') && 
-                !href.startsWith('/#')
-                ) {
-            const [pagePart, anchorPart] = href.split('#'); // [ 'az.html', 'team' ]
-        
-            // Попробуем найти элемент с id="team"
-            const $target = $('#' + anchorPart);
-            if ($target.length) {
-              // Нашли элемент на этой же странице
-              const offset = getScrollOffset();
-              $('html, body').animate(
-                { scrollTop: $target.offset().top - offset },
-                400,
-                () => {
-                  // Обновим адресную строку только якорем
-                  // т.е. #team (или хотите вернуть 'az.html#team')
-                  history.pushState(null, '', '#' + anchorPart);
-                }
-              );
-            } else {
-              // Элемента нет — значит, это другой раздел/другая страница
-              // вызываем swup, чтобы перейти
-              swup.navigate(href);
+        // Снимаем старые обработчики
+        $(document).off('click', 'a[href^="#"], a[href^="/#"], a[href^="/ru#"]');
+    
+        $(document).on('click', 'a[href^="#"], a[href^="/#"], a[href^="/ru#"]', function (event) {
+            event.preventDefault();
+            let href = $(this).attr('href');
+    
+            // Если ссылка начинается с '/#', превращаем в '#'
+            if (href.indexOf('/#') === 0) {
+                href = href.replace(/^\/#/, '#');
             }
-        
-            return; // Выходим, чтобы не шли дальше по общему коду
-          }
-      
-          // Уберём ведущий слеш, если он есть
-          // "/#services" -> "#services"
-          href = href.replace(/^\/#/, '#');
-      
-          const $target = $(href);
-          if ($target.length) {
-            // Находим отступ
-            const offset = getScrollOffset();
-            // Плавная анимация к элементу
-            $('html, body').animate(
-              { scrollTop: $target.offset().top - offset },
-              400,
-              () => {
-                // По окончании анимации ставим хэш в адресную строку
-                history.pushState(null, '', href);
-              }
-            );
-          } else {
-            // Элемента нет - значит, это якорь другой страницы
-            // или раздела, которого тут нет, — отправим в swup
-            const targetUrl = href.startsWith('/') ? href : `/${href}`;
-            swup.navigate(targetUrl);
-          }
+            
+            // Если мы не на главной странице (/ru) и ссылка не содержит явно '/ru#',
+            // то значит она предназначалась для главной, поэтому добавляем префикс.
+            if (window.location.pathname !== '/ru' && href.indexOf('/ru#') !== 0) {
+                href = '/ru' + href;
+            }
+            
+            // Если ссылка начинается с '/ru#', обрабатываем её отдельно:
+            if (href.indexOf('/ru#') === 0) {
+                const anchor = href.substring(3); // получаем, например, "#services"
+                if (window.location.pathname === '/ru') {
+                    // Если уже на главной, скроллим до элемента
+                    const $target = $(anchor);
+                    if ($target.length) {
+                        const offset = getScrollOffset();
+                        $('html, body').animate({ scrollTop: $target.offset().top - offset }, 400, () => {
+                            history.pushState(null, '', '/ru' + anchor);
+                        });
+                    }
+                } else {
+                    // Если не на главной, переходим через swup
+                    swup.navigate('/ru' + anchor);
+                }
+            } else if (href.indexOf('#') === 0) {
+                // Если ссылка выглядит как чистый якорь, но мы уже на главной — просто скроллим
+                if (window.location.pathname === '/ru') {
+                    const $target = $(href);
+                    if ($target.length) {
+                        const offset = getScrollOffset();
+                        $('html, body').animate({ scrollTop: $target.offset().top - offset }, 400, () => {
+                            history.pushState(null, '', '/ru' + href);
+                        });
+                    }
+                } else {
+                    // Если не на главной, переходим на главную с якорем
+                    swup.navigate('/ru' + href);
+                }
+            }
         });
     }
       
@@ -254,7 +238,7 @@ $(function () {
         $('.mil-menu-btn').on("click", function () {
             $(this).toggleClass('mil-active');
             $('.mil-menu').toggleClass('mil-active');
-            if ($(window).width() < 1070) {
+            if ($(window).width() < 1155) {
                 $('.mil-menu-frame').toggleClass('mil-active');
             }
         });
@@ -263,7 +247,7 @@ $(function () {
             if ($('.mil-menu-btn').hasClass('mil-active')) {
                 $('.mil-menu-btn').removeClass('mil-active');
                 $('.mil-menu').removeClass('mil-active');
-                if ($(window).width() < 1070) {
+                if ($(window).width() < 1155) {
                     $('.mil-menu-frame').removeClass('mil-active');
                 }
             }
@@ -604,12 +588,12 @@ $(function () {
                 "rahat_crescent_mall": {
                     title: "Rahat Gourmet Crescent Mall",
                     bannerTitle: "Rahat Gourmet Crescent Mall",
-                    breadcrumbs: ["Homepage", "Projects", "RAHAT GOURMET CRESCENT MALL"],
+                    breadcrumbs: ["Главная", "Проекты", "RAHAT GOURMET CRESCENT MALL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Gourmet Market"
+                            text: "Гурмэ-маркет"
                         },
                         {
                             tag: "p",
@@ -643,18 +627,18 @@ $(function () {
                     relatedProjects: [
                         { id: "port_bazar", name: "Port Bazar" },
                         { id: "casa", name: "CASA Baku" },
-                        { id: "bravo", name: "Bravo Supermarkets" }
+                        { id: "bravo", name: "Супермаркеты Bravo" }
                     ]
                 },
                 "port_baku_walk": {
                     title: "Port Baku Walk",
                     bannerTitle: "Port Baku Walk",
-                    breadcrumbs: ["Homepage", "Projects", "PORT BAKU WALK"],
+                    breadcrumbs: ["Главная", "Проекты", "PORT BAKU WALK"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Business Centre and Restaurants"
+                            text: "Бизнес-центр и рестораны"
                         },
                         {
                             tag: "p",
@@ -690,12 +674,12 @@ $(function () {
                 "casa": {
                     title: "CASA Baku",
                     bannerTitle: "CASA Baku",
-                    breadcrumbs: ["Homepage", "Projects", "CASA BAKU"],
+                    breadcrumbs: ["Главная", "Проекты", "CASA BAKU"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Culinary Art Centre"
+                            text: "Центр Кулинарного Искусства"
                         },
                         {
                             tag: "p",
@@ -739,12 +723,12 @@ $(function () {
                 "daniz_mall": {
                     title: "Daniz Mall",
                     bannerTitle: "Daniz Mall",
-                    breadcrumbs: ["Homepage", "Projects", "DANIZ MALL"],
+                    breadcrumbs: ["Главная", "Проекты", "DANIZ MALL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
@@ -794,12 +778,12 @@ $(function () {
                 "port_baku_mall": {
                     title: "Port Baku Mall",
                     bannerTitle: "Port Baku Mall",
-                    breadcrumbs: ["Homepage", "Projects", "PORT BAKU WALK"],
+                    breadcrumbs: ["Главная", "Проекты", "PORT BAKU WALK"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
@@ -849,12 +833,12 @@ $(function () {
                 "vasilchuki": {
                     title: "Vasilchuki Chaihona №1",
                     bannerTitle: "Vasilchuki Chaihona №1",
-                    breadcrumbs: ["Homepage", "Projects", "VASILCHUKI CHAIHONA №1"],
+                    breadcrumbs: ["Главная", "Проекты", "VASILCHUKI CHAIHONA №1"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Restaurant"
+                            text: "Ресторан"
                         },
                         {
                             tag: "p",
@@ -894,12 +878,12 @@ $(function () {
                 "flame_towers": {
                     title: "Flame Towers",
                     bannerTitle: "Flame Towers",
-                    breadcrumbs: ["Homepage", "Projects", "FLAME TOWERS"],
+                    breadcrumbs: ["Главная", "Проекты", "FLAME TOWERS"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Business Centre"
+                            text: "Бизнес-Центр"
                         },
                         {
                             tag: "p",
@@ -943,12 +927,12 @@ $(function () {
                 "ritz_carlton": {
                     title: "The Ritz Carlton Baku",
                     bannerTitle: "The Ritz Carlton Baku",
-                    breadcrumbs: ["Homepage", "Projects", "THE RITZ CARLTON BAKU"],
+                    breadcrumbs: ["Главная", "Проекты", "THE RITZ CARLTON BAKU"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Luxury Hotel and Residence"
+                            text: "Люкс-Отель И Резиденция"
                         },
                         {
                             tag: "p",
@@ -986,12 +970,12 @@ $(function () {
                 "crescent_mall": {
                     title: "Crescent Mall",
                     bannerTitle: "Crescent Mall",
-                    breadcrumbs: ["Homepage", "Projects", "CRESCENT MALL"],
+                    breadcrumbs: ["Главная", "Проекты", "CRESCENT MALL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
@@ -1041,12 +1025,12 @@ $(function () {
                 "marriott_absheron": {
                     title: "JW Marriott Absheron Baku",
                     bannerTitle: "JW Marriott Absheron Baku",
-                    breadcrumbs: ["Homepage", "Projects", "JW MARRIOTT ABSHERON BAKU"],
+                    breadcrumbs: ["Главная", "Проекты", "JW MARRIOTT ABSHERON BAKU"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Luxury Hotel and Residence"
+                            text: "Люкс-Отель И Резиденция"
                         },
                         {
                             tag: "p",
@@ -1085,12 +1069,12 @@ $(function () {
                 "bilgah_hotel": {
                     title: "Bilgeh Beach Hotel",
                     bannerTitle: "Bilgeh Beach Hotel",
-                    breadcrumbs: ["Homepage", "Projects", "BILGEH BEACH HOTEL"],
+                    breadcrumbs: ["Главная", "Проекты", "BILGEH BEACH HOTEL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Luxury Hotel"
+                            text: "Люкс-Отель"
                         },
                         {
                             tag: "p",
@@ -1134,12 +1118,12 @@ $(function () {
                 "qatar_mall": {
                     title: "Mall of Qatar",
                     bannerTitle: "Mall of Qatar",
-                    breadcrumbs: ["Homepage", "Projects", "MALL OF QATAR"],
+                    breadcrumbs: ["Главная", "Проекты", "MALL OF QATAR"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
@@ -1189,17 +1173,17 @@ $(function () {
                 "ganjlik_mall": {
                     title: "Ganjlik Mall",
                     bannerTitle: "Ganjlik Mall",
-                    breadcrumbs: ["Homepage", "Projects", "GANJLIK MALL"],
+                    breadcrumbs: ["Главная", "Проекты", "GANJLIK MALL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
                             class: "mil-mb-15",
-                            text: "Ganjlik Mall is one of the largest shopping malls in Azerbaijan, it contains famous clothing brands alongside with a range of cafes and dining with a beautiful city view."
+                            text: "Ganjlik Mall is one of the largest Торговый Центрs in Azerbaijan, it contains famous clothing brands alongside with a range of cafes and dining with a beautiful city view."
                         },
                         {
                             tag: "p",
@@ -1236,12 +1220,12 @@ $(function () {
                 "mall_28": {
                     title: "Mall28",
                     bannerTitle: "Mall28",
-                    breadcrumbs: ["Homepage", "Projects", "MALL28"],
+                    breadcrumbs: ["Главная", "Проекты", "MALL28"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
@@ -1287,12 +1271,12 @@ $(function () {
                 "ganja_mall": {
                     title: "Ganja Mall",
                     bannerTitle: "Ganja Mall",
-                    breadcrumbs: ["Homepage", "Projects", "GANJA MALL"],
+                    breadcrumbs: ["Главная", "Проекты", "GANJA MALL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
@@ -1342,12 +1326,12 @@ $(function () {
                 "amburan_mall": {
                     title: "Amburan Mall",
                     bannerTitle: "Amburan Mall",
-                    breadcrumbs: ["Homepage", "Projects", "AMBURAN MALL"],
+                    breadcrumbs: ["Главная", "Проекты", "AMBURAN MALL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
@@ -1393,12 +1377,12 @@ $(function () {
                 "marriott_boulevard": {
                     title: "Baku Marriott Boulevard Hotel",
                     bannerTitle: "Baku Marriott Boulevard Hotel",
-                    breadcrumbs: ["Homepage", "Projects", "BAKU MARRIOTT BOULEVARD HOTEL"],
+                    breadcrumbs: ["Главная", "Проекты", "BAKU MARRIOTT BOULEVARD HOTEL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Luxury Hotel"
+                            text: "Люкс-Отель"
                         },
                         {
                             tag: "p",
@@ -1442,12 +1426,12 @@ $(function () {
                 "sheraton_hotel": {
                     title: "Sheraton Baku Intourist Hotel",
                     bannerTitle: "Sheraton Baku Intourist Hotel",
-                    breadcrumbs: ["Homepage", "Projects", "SHERATON BAKU INTOURIST HOTEL"],
+                    breadcrumbs: ["Главная", "Проекты", "SHERATON BAKU INTOURIST HOTEL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Luxury Hotel"
+                            text: "Люкс-Отель"
                         },
                         {
                             tag: "p",
@@ -1491,12 +1475,12 @@ $(function () {
                 "port_baku_residence": {
                     title: "Port Baku Residence",
                     bannerTitle: "Port Baku Residence",
-                    breadcrumbs: ["Homepage", "Projects", "PORT BAKU RESIDENCE"],
+                    breadcrumbs: ["Главная", "Проекты", "PORT BAKU RESIDENCE"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Premium Residence"
+                            text: "Премиум-Резиденция"
                         },
                         {
                             tag: "p",
@@ -1533,12 +1517,12 @@ $(function () {
                 "azure_center": {
                     title: "Azure Business Center",
                     bannerTitle: "Azure Business Center",
-                    breadcrumbs: ["Homepage", "Projects", "AZURE BUSINESS CENTER"],
+                    breadcrumbs: ["Главная", "Проекты", "AZURE BUSINESS CENTER"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Business Centre"
+                            text: "Бизнес-Центр"
                         },
                         {
                             tag: "p",
@@ -1574,12 +1558,12 @@ $(function () {
                 "athletes_village": {
                     title: "Athletes Village",
                     bannerTitle: "Athletes Village",
-                    breadcrumbs: ["Homepage", "Projects", "ATHLETES VILLAGE"],
+                    breadcrumbs: ["Главная", "Проекты", "ATHLETES VILLAGE"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Residence"
+                            text: "Жилой Комплекс"
                         },
                         {
                             tag: "p",
@@ -1622,12 +1606,12 @@ $(function () {
                 "dinamo_hotel": {
                     title: "Dinamo Hotel",
                     bannerTitle: "Dinamo Hotel",
-                    breadcrumbs: ["Homepage", "Projects", "DINAMO HOTEL"],
+                    breadcrumbs: ["Главная", "Проекты", "DINAMO HOTEL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Hotel"
+                            text: "Отель"
                         },
                         {
                             tag: "p",
@@ -1671,12 +1655,12 @@ $(function () {
                 "shuvelan_park": {
                     title: "Shuvelan Park",
                     bannerTitle: "Shuvelan Park",
-                    breadcrumbs: ["Homepage", "Projects", "SHUVELAN PARK"],
+                    breadcrumbs: ["Главная", "Проекты", "SHUVELAN PARK"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
@@ -1718,12 +1702,12 @@ $(function () {
                 "dosa_mall": {
                     title: "Dosa Mall",
                     bannerTitle: "Dosa Mall",
-                    breadcrumbs: ["Homepage", "Projects", "DOSA MALL"],
+                    breadcrumbs: ["Главная", "Проекты", "DOSA MALL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Shopping Mall"
+                            text: "Торговый Центр"
                         },
                         {
                             tag: "p",
@@ -1765,12 +1749,12 @@ $(function () {
                 "port_bazar": {
                     title: "Port Bazar",
                     bannerTitle: "Port Bazar",
-                    breadcrumbs: ["Homepage", "Projects", "PORT BAZAR"],
+                    breadcrumbs: ["Главная", "Проекты", "PORT BAZAR"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Gourmet Market"
+                            text: "Гурмэ-маркет"
                         },
                         {
                             tag: "p",
@@ -1808,18 +1792,18 @@ $(function () {
                     relatedProjects: [
                         { id: "rahat_crescent_mall", name: "Rahat Gourmet Crescent Mall" },
                         { id: "casa", name: "CASA Baku" },
-                        { id: "bravo", name: "Bravo Supermarkets" }
+                        { id: "bravo", name: "Супермаркеты Bravo" }
                     ]
                 },
                 "starbucks_gyd": {
                     title: "Starbucks Heydar Aliyev International Airport",
                     bannerTitle: "Starbucks Heydar Aliyev International Airport",
-                    breadcrumbs: ["Homepage", "Projects", "Starbucks GYD"],
+                    breadcrumbs: ["Главная", "Проекты", "Starbucks GYD"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Food & Beverage"
+                            text: "Кафе И Рестораны"
                         },
                         {
                             tag: "p",
@@ -1863,12 +1847,12 @@ $(function () {
                 "skechers_crescent_mall": {
                     title: "Skechers Crescent Mall",
                     bannerTitle: "Skechers Crescent Mall",
-                    breadcrumbs: ["Homepage", "Projects", "SKECHERS CRESCENT MALL"],
+                    breadcrumbs: ["Главная", "Проекты", "SKECHERS CRESCENT MALL"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Retail"
+                            text: "Розничная Торговля"
                         },
                         {
                             tag: "p",
@@ -1904,12 +1888,12 @@ $(function () {
                 "bumblebee_kids_club": {
                     title: "Bumblebee Kids Club",
                     bannerTitle: "Bumblebee Kids Club",
-                    breadcrumbs: ["Homepage", "Projects", "BUMBLEBEE KIDS CLUB"],
+                    breadcrumbs: ["Главная", "Проекты", "BUMBLEBEE KIDS CLUB"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Educational entity"
+                            text: "Образование"
                         },
                         {
                             tag: "p",
@@ -1948,12 +1932,12 @@ $(function () {
                 "kinderland": {
                     title: "Kinderland",
                     bannerTitle: "Kinderland",
-                    breadcrumbs: ["Homepage", "Projects", "KINDERLAND"],
+                    breadcrumbs: ["Главная", "Проекты", "KINDERLAND"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Entertainment and Education"
+                            text: "Развлечение И Образование"
                         },
                         {
                             tag: "p",
@@ -1992,12 +1976,12 @@ $(function () {
                 "kids_city": {
                     title: "Kids City",
                     bannerTitle: "Kids City",
-                    breadcrumbs: ["Homepage", "Projects", "KIDS CITY"],
+                    breadcrumbs: ["Главная", "Проекты", "KIDS CITY"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Entertainment"
+                            text: "Развлекательный Центр"
                         },
                         {
                             tag: "p",
@@ -2032,12 +2016,12 @@ $(function () {
                 "xudat_food": {
                     title: "Xudat Food City Agrocomplex",
                     bannerTitle: "Xudat Food City Agrocomplex",
-                    breadcrumbs: ["Homepage", "Projects", "XUDAT FOOD CITY AGROCOMPLEX"],
+                    breadcrumbs: ["Главная", "Проекты", "XUDAT FOOD CITY AGROCOMPLEX"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Agriculture"
+                            text: "Сельское Хозяйство"
                         },
                         {
                             tag: "p",
@@ -2069,20 +2053,20 @@ $(function () {
                         }
                     ],
                     relatedProjects: [
-                        { id: "fuzuli_city", name: "Fuzuli City Infrastructure" },
-                        { id: "karabakh_projects", name: "Karabakh Projects" },
-                        { id: "ministry_of_defence", name: "Ministry of Defence Projects" }
+                        { id: "fuzuli_city", name: "Городская инфраструктура города Физули" },
+                        { id: "karabakh_projects", name: "Проекты в Карабахском Регионе" },
+                        { id: "ministry_of_defence", name: "Проекты Министерства Обороны" }
                     ]
                 },
                 "fuzuli_city": {
-                    title: "Fuzuli City Infrastructure",
-                    bannerTitle: "Fuzuli City Infrastructure",
-                    breadcrumbs: ["Homepage", "Projects", "FIZULI CITY INFRASTRUCTURE"],
+                    title: "Городская инфраструктура города Физули",
+                    bannerTitle: "Городская инфраструктура города Физули",
+                    breadcrumbs: ["Главная", "Проекты", "ГОРОДСКАЯ ИНФРАСТРУКТУРА ГОРОДА ФИЗУЛИ"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "City Infrastructure"
+                            text: "Городская Инфраструктура"
                         },
                         {
                             tag: "p",
@@ -2110,20 +2094,20 @@ $(function () {
                         }
                     ],
                     relatedProjects: [
-                        { id: "karabakh_projects", name: "Karabakh Projects" },
-                        { id: "ministry_of_defence", name: "Ministry of Defence Projects" },
+                        { id: "karabakh_projects", name: "Проекты в Карабахском Регионе" },
+                        { id: "ministry_of_defence", name: "Проекты Министерства Обороны" },
                         { id: "xudat_food", name: "Xudat Food City Agrocomplex" },
                     ]
                 },
                 "karabakh": {
-                    title: "Karabakh Projects",
-                    bannerTitle: "Karabakh Projects",
-                    breadcrumbs: ["Homepage", "Projects", "KARABAKH PROJECTS"],
+                    title: "Проекты в Карабахском Регионе",
+                    bannerTitle: "Проекты в Карабахском Регионе",
+                    breadcrumbs: ["Главная", "Проекты", "ПРОЕКТЫ В КАРАБАХСКОМ РЕГИОНЕ"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Reconstruction"
+                            text: "Реконструкция"
                         },
                         {
                             tag: "p",
@@ -2151,20 +2135,20 @@ $(function () {
                         }
                     ],
                     relatedProjects: [
-                        { id: "fuzuli_city", name: "Fuzuli City Infrastructure" },
-                        { id: "ministry_of_defence", name: "Ministry of Defence Projects" },
+                        { id: "fuzuli_city", name: "Городская инфраструктура города Физули" },
+                        { id: "ministry_of_defence", name: "Проекты Министерства Обороны" },
                         { id: "xudat_food", name: "Xudat Food City Agrocomplex" },
                     ]
                 },
                 "ministry_of_defence": {
-                    title: "Ministry of Defence Projects",
-                    bannerTitle: "Ministry of Defence Projects",
-                    breadcrumbs: ["Homepage", "Projects", "MINISTRY OF DEFENCE PROJECTS"],
+                    title: "Проекты Министерства Обороны",
+                    bannerTitle: "Проекты Министерства Обороны",
+                    breadcrumbs: ["Главная", "Проекты", "ПРОЕКТЫ МИНИСТЕРСТВА ОБОРОНЫ"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Military"
+                            text: "Военные Объекты"
                         },
                         {
                             tag: "p",
@@ -2192,20 +2176,20 @@ $(function () {
                         }
                     ],
                     relatedProjects: [
-                        { id: "karabakh", name: "Karabakh Projects" },
-                        { id: "fuzuli_city", name: "Fuzuli City Infrastructure" },
+                        { id: "karabakh", name: "Проекты в Карабахском Регионе" },
+                        { id: "fuzuli_city", name: "Городская инфраструктура города Физули" },
                         { id: "xudat_food", name: "Xudat Food City Agrocomplex" },
                     ]
                 },
                 "bravo": {
-                    title: "Bravo Supermarkets",
-                    bannerTitle: "Bravo Supermarkets",
-                    breadcrumbs: ["Homepage", "Projects", "BRAVO SUPERMARKETS"],
+                    title: "Супермаркеты Bravo",
+                    bannerTitle: "Супермаркеты Bravo",
+                    breadcrumbs: ["Главная", "Проекты", "СУПЕРМАРКЕТЫ BRAVO"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Supermarkets"
+                            text: "Супермаркеты"
                         },
                         {
                             tag: "p",
@@ -2238,14 +2222,14 @@ $(function () {
                     ]
                 },
                 "coffee_shops": {
-                    title: "Coffee Shops",
-                    bannerTitle: "Coffee Shops",
-                    breadcrumbs: ["Homepage", "Projects", "COFFEE SHOPS"],
+                    title: "Кофейни",
+                    bannerTitle: "Кофейни",
+                    breadcrumbs: ["Главная", "Проекты", "КОФЕЙНИ"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Food & Beverage"
+                            text: "Кафе И Рестораны"
                         },
                         {
                             tag: "p",
@@ -2281,14 +2265,14 @@ $(function () {
                     ]
                 },
                 "fashion_retail": {
-                    title: "Fashion Retail",
-                    bannerTitle: "Fashion Retail",
-                    breadcrumbs: ["Homepage", "Projects", "FASHION RETAIL"],
+                    title: "Магазины модной одежды",
+                    bannerTitle: "Магазины модной одежды",
+                    breadcrumbs: ["Главная", "Проекты", "МАГАЗИНЫ МОДНОЙ ОДЕЖДЫ"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Retail"
+                            text: "Розничная Торговля"
                         },
                         {
                             tag: "p",
@@ -2320,14 +2304,14 @@ $(function () {
                     ]
                 },
                 "villa": {
-                    title: "Villa Projects",
-                    bannerTitle: "Villa Projects",
-                    breadcrumbs: ["Homepage", "Projects", "VILLA PROJECTS"],
+                    title: "Виллы",
+                    bannerTitle: "Виллы",
+                    breadcrumbs: ["Главная", "Проекты", "ВИЛЛЫ"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Villa"
+                            text: "Виллы"
                         },
                         {
                             tag: "p",
@@ -2352,14 +2336,14 @@ $(function () {
                     relatedProjects: []
                 },
                 "maintenance": {
-                    title: "Maintenance",
-                    bannerTitle: "Maintenance",
-                    breadcrumbs: ["Homepage", "Projects", "MAINTENANCE"],
+                    title: "Обслуживание",
+                    bannerTitle: "Обслуживание",
+                    breadcrumbs: ["Главная", "Проекты", "ОБСЛУЖИВАНИЕ"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Maintenance"
+                            text: "Обслуживание"
                         },
                         {
                             tag: "p",
@@ -2384,14 +2368,14 @@ $(function () {
                     relatedProjects: []
                 },
                 "design": {
-                    title: "Design",
-                    bannerTitle: "Design",
-                    breadcrumbs: ["Homepage", "Projects", "DESIGN"],
+                    title: "Дизайн",
+                    bannerTitle: "Дизайн",
+                    breadcrumbs: ["Главная", "Проекты", "ДИЗАЙН"],
                     info: [
                         {
                             tag: "h4",
                             class: "mil-mb-30",
-                            text: "Design services"
+                            text: "Дизайн-Услуги"
                         },
                         {
                             tag: "p",
@@ -2423,7 +2407,7 @@ $(function () {
             const project = projects[projectId];
 
             if (!project) {
-                console.warn("Project not found:", projectId);
+                console.warn("Проект не найден:", projectId);
                 stopAutoSlide();
                 return;
             }
@@ -2435,7 +2419,7 @@ $(function () {
             const imagesContainer = document.querySelector('.col-lg-7');
 
             if (!banner || !breadcrumbsContainer || !infoContainer || !imagesContainer) {
-                console.error("Required DOM elements are missing.");
+                console.error("Необходимые DOM элементы потеряны.");
                 return;
             }
 

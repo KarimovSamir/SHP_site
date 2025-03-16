@@ -41,6 +41,7 @@
 --------------------------------------------*/
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;400;500;700;900&display=swap");
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css);
 
 html[lang="en"] {
@@ -48,7 +49,7 @@ html[lang="en"] {
 }
 
 html[lang="ru"] {
-  font-family: "Outfit", sans-serif;
+  font-family: 'Noto Sans', Arial, sans-serif;
 }
 
 html[lang="az"] {
@@ -61,7 +62,14 @@ html[lang="en"] .mil-h6 {
 }
 
 html[lang="ru"] .mil-h6 {
-  font-family: "Outfit", sans-serif;
+  font-family: 'Noto Sans', Arial, sans-serif;
+}
+
+html[lang="ru"] .mil-button,
+html[lang="ru"] .service-accordion-head, 
+html[lang="ru"] .mil-link,
+html[lang="ru"] .mil-breadcrumbs li a {
+  font-weight: 600;
 }
 
 html[lang="az"] .mil-h6 {
@@ -76,7 +84,7 @@ html[lang="en"] textarea {
 
 html[lang="ru"] input,
 html[lang="ru"] textarea {
-  font-family: "Outfit", sans-serif;
+  font-family: 'Noto Sans', Arial, sans-serif;
 }
 
 html[lang="az"] input,
@@ -98,7 +106,7 @@ html[lang="ru"] .mil-subscribe-form input::-webkit-input-placeholder,
 html[lang="ru"] .mil-subscribe-form input::-moz-placeholder,
 html[lang="ru"] .mil-subscribe-form input:-ms-input-placeholder,
 html[lang="ru"] .mil-subscribe-form input::-ms-input-placeholder {
-  font-family: "Outfit", sans-serif;
+  font-family: 'Noto Sans', Arial, sans-serif;
 }
 
 html[lang="az"] .mil-subscribe-form input::placeholder,
@@ -3626,6 +3634,7 @@ blog
 .mil-labels .mil-label {
   margin-right: 15px;
   font-size: 18px;
+  font-weight: 500;
 }
 .mil-labels .mil-label:last-child {
   margin-right: 0;

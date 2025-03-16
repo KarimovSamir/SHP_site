@@ -238,7 +238,7 @@ $(function () {
         $('.mil-menu-btn').on("click", function () {
             $(this).toggleClass('mil-active');
             $('.mil-menu').toggleClass('mil-active');
-            if ($(window).width() < 1070) {
+            if ($(window).width() < 1155) {
                 $('.mil-menu-frame').toggleClass('mil-active');
             }
         });
@@ -247,7 +247,7 @@ $(function () {
             if ($('.mil-menu-btn').hasClass('mil-active')) {
                 $('.mil-menu-btn').removeClass('mil-active');
                 $('.mil-menu').removeClass('mil-active');
-                if ($(window).width() < 1070) {
+                if ($(window).width() < 1155) {
                     $('.mil-menu-frame').removeClass('mil-active');
                 }
             }

@@ -5,5 +5,16 @@ Disallow: /certificates
 Disallow: /contact
 Disallow: /team
 Disallow: /404
+Disallow: /portfolio_ru
+Disallow: /portfolio_single_ru
+Disallow: /certificates_ru
+Disallow: /contact_ru
+Disallow: /team_ru
+Disallow: /portfolio_az
+Disallow: /portfolio_single_az
+Disallow: /certificates_az
+Disallow: /contact_az
+Disallow: /team_az
+Disallow: /careers
 
 Sitemap: https://www.shp.az/sitemap.xml
