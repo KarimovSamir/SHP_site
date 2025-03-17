@@ -24,14 +24,14 @@ $(function () {
         linkSelector: 'a:not([data-no-swup]):not([href*="#"])',
         animationSelector: '[class*="mil-main-transition"]',
         hooks: {
-            // 'page:view': () => {
-            //     initializeDynamicElements();
-            //     scrollToHashIfExists(); 
-            // },
-            'animation:in:done': () => {
+            'page:view': () => {
                 initializeDynamicElements();
                 scrollToHashIfExists(); 
             },
+            // 'animation:in:done': () => {
+            //     initializeDynamicElements();
+            //     scrollToHashIfExists(); 
+            // },
         }
     };
     swup = new Swup(options);
@@ -2552,8 +2552,8 @@ $(function () {
     // initializePortfolioSingle();
 
     // Повторная инициализация после Swup
-    // document.addEventListener("swup:animationInDone", () => {
-    //     console.log("Swup animation completed. Reinitializing slideshow...");
-    //     initializeDynamicElements();
-    // });
+    document.addEventListener("swup:animationInDone", () => {
+        console.log("Swup animation completed. Reinitializing slideshow...");
+        initializeDynamicElements();
+    });
 });
