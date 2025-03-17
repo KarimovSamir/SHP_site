@@ -18,14 +18,17 @@ $(function () {
 
     ***************************/
     const options = {
-        containers: ['#swupMain', '#swupMenuMobile', 'swupMenuFrameMobile', 'swupMenuDesktop'],
+        containers: ['#swupMain', '#swupMenuMobile', '#swupMenuFrameMobile', '#swupMenuDesktop'],
         animateHistoryBrowsing: false,
         // linkSelector: 'a:not([data-no-swup]):not([href^="#"])',
         linkSelector: 'a:not([data-no-swup]):not([href*="#"])',
         animationSelector: '[class*="mil-main-transition"]',
         hooks: {
-            'page:view': () => {
-                // console.log('Контент обновлён. Выполняем повторную инициализацию...');
+            // 'page:view': () => {
+            //     initializeDynamicElements();
+            //     scrollToHashIfExists(); 
+            // },
+            'animation:in:done': () => {
                 initializeDynamicElements();
                 scrollToHashIfExists(); 
             },
@@ -2428,7 +2431,7 @@ $(function () {
             breadcrumbsContainer.innerHTML = project.breadcrumbs
                 .map((crumb, index) =>
                     index < project.breadcrumbs.length - 1
-                        ? `<li><a href="${index === 0 ? '/' : 'portfolio_az'}">${crumb}</a></li>`
+                        ? `<li><a href="/${index === 0 ? '/' : 'portfolio_az'}">${crumb}</a></li>`
                         : `<li>${crumb}</li>`
                 )
                 .join("");
@@ -2548,8 +2551,8 @@ $(function () {
     initializeDynamicElements();
 
     // Повторная инициализация после Swup
-    document.addEventListener("swup:animationInDone", () => {
-        console.log("Swup animation completed. Reinitializing slideshow...");
-        initializeDynamicElements();
-    });
+    // document.addEventListener("swup:animationInDone", () => {
+    //     console.log("Swup animation completed. Reinitializing slideshow...");
+    //     initializeDynamicElements();
+    // });
 });
